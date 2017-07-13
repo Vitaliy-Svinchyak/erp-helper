@@ -27,12 +27,12 @@ class Helper {
     return YY + MM + DD + SSS + C;
   }
 
-  static generateRandomString() {
+  static generateRandomString(length) {
+    length = length | Helper.getRandomInteger(3, 10);
     const consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'k', 'l', 'm',
       'n', 'p', 'q', 'r', 's', 't', 'v', 'x', 'z'];
     const vowels = ['a', 'e', 'o', 'u', 'y', 'i'];
     let i = 0;
-    const length = Helper.getRandomInteger(3, 10);
     let string = '';
     let lastLetterType = Helper.getRandomInteger(0, 2);
 
