@@ -56,8 +56,8 @@ class Helper {
     return string;
   }
 
-  static generateRandomName() {
-    const name = Helper.generateRandomString();
+  static generateRandomName(nameLength) {
+    const name = Helper.generateRandomString(nameLength);
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
 

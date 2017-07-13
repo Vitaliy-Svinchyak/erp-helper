@@ -1,12 +1,25 @@
 (function() {
+  function setValue(selector, value) {
+    document.querySelector(selector).value = value;
+  }
+
+  function setValueWithChangeAndFocus(selector, value) {
+    const element = document.querySelector(selector);
+    element.value = value;
+
+    element.dispatchEvent(new Event('change', {bubbles: true, cancelable: false}));
+    element.dispatchEvent(new Event('focus', {bubbles: true, cancelable: false}));
+    return element;
+  }
+
   function fillErpApplication() {
-    document.querySelector('[name="client[clientIdentificator]"]').value = Helper.getRandomMap();
-    document.querySelector('[name="client[name]"]').value = Helper.generateRandomName();
-    document.querySelector('[name="client[fathersName]"]').value = Helper.generateRandomName();
-    document.querySelector('[name="client[surname]"]').value = Helper.generateRandomName();
-    document.querySelector('[name="client[email]"]').value = Helper.generateRandomEmail();
-    document.querySelector('[name="client[phone]"]').value = Helper.generateRandomMobilePhone();
-    document.querySelector('[name="client[documentNumber]"]').value = Helper.getRandomInteger(1000, 100000);
+    setValue('[name="client[clientIdentificator]"]', Helper.getRandomMap());
+    setValue('[name="client[name]"]', Helper.generateRandomName());
+    setValue('[name="client[fathersName]"]', Helper.generateRandomName());
+    setValue('[name="client[surname]"]', Helper.generateRandomName());
+    setValue('[name="client[email]"]', Helper.generateRandomEmail());
+    setValue('[name="client[phone]"]', Helper.generateRandomMobilePhone());
+    setValue('[name="client[documentNumber]"]', Helper.getRandomInteger(1000, 100000));
     document.querySelector('[data-normalized-text="Passport"]').click();
 
     const district = Helper.generateRandomName();
@@ -24,15 +37,15 @@
     const valuesText = document.querySelector('[name="client[adrId][text]').value + `|${district}|${town}|${street}|${house}|${entrance}|${apartment}|${postalCode}|`;
     const idText = document.querySelector('[name="client[adrId][id]"]').value + '|-1|-1|-1|-1|-1|-1|-1';
 
-    document.querySelector('[name="client[adrId][id]"]').value = idText;
-    document.querySelector('[name="client[adrId][text]').value = valuesText;
-    document.querySelector('[name="client[adrDistrict]"]').value = district;
-    document.querySelector('[name="client[adrCity]"]').value = town;
-    document.querySelector('[name="client[adrStreet]"]').value = street;
-    document.querySelector('[name="client[adrHouse]"]').value = house;
-    document.querySelector('[name="client[adrEntrance]"]').value = entrance;
-    document.querySelector('[name="client[adrApartment]"]').value = apartment;
-    document.querySelector('[name="client[adrPostcode]"]').value = postalCode;
+    setValue('[name="client[adrId][id]"]', idText);
+    setValue('[name="client[adrId][text]', valuesText);
+    setValue('[name="client[adrDistrict]"]', district);
+    setValue('[name="client[adrCity]"]', town);
+    setValue('[name="client[adrStreet]"]', street);
+    setValue('[name="client[adrHouse]"]', house);
+    setValue('[name="client[adrEntrance]"]', entrance);
+    setValue('[name="client[adrApartment]"]', apartment);
+    setValue('[name="client[adrPostcode]"]', postalCode);
 
     document.querySelector('[name="client[adrCity]"]').removeAttribute('disabled');
     document.querySelector('[name="client[adrStreet]"]').removeAttribute('disabled');
@@ -45,12 +58,12 @@
   }
 
   function fillCmsApplication() {
-    document.querySelector('[name="identificationNumber"]').value = Helper.getRandomMap();
-    document.querySelector('[name="name"]').value = Helper.generateRandomName();
-    document.querySelector('[name="fathersName"]').value = Helper.generateRandomName();
-    document.querySelector('[name="surname"]').value = Helper.generateRandomName();
-    document.querySelector('[name="email"]').value = Helper.generateRandomEmail();
-    document.querySelector('[name="phone"]').value = Helper.generateRandomMobilePhone();
+    setValueWithChangeAndFocus('[name="identificationNumber"]', Helper.getRandomMap());
+    setValueWithChangeAndFocus('[name="name"]', Helper.generateRandomName());
+    setValueWithChangeAndFocus('[name="fathersName"]', Helper.generateRandomName());
+    setValueWithChangeAndFocus('[name="surname"]', Helper.generateRandomName());
+    setValueWithChangeAndFocus('[name="email"]', Helper.generateRandomEmail());
+    setValueWithChangeAndFocus('[name="phone"]', Helper.generateRandomMobilePhone());
 
     const district = Helper.generateRandomName();
     const town = Helper.generateRandomName();
@@ -62,24 +75,25 @@
 
     const divisions = document.querySelector('[name="client[clientAddress][adrDivision]"]').children;
     const selectedDivisionNumber = Helper.getRandomInteger(0, divisions.length - 1);
-    document.querySelector('[name="client[clientAddress][adrDivision]"]').value = divisions[selectedDivisionNumber].value;
+    setValueWithChangeAndFocus('[name="client[clientAddress][adrDivision]"]', divisions[selectedDivisionNumber].value);
 
-    document.querySelector('[name="client[clientAddress][adrDistrict]"]').value = district;
-    document.querySelector('[name="client[clientAddress][adrCity]"]').value = town;
-    document.querySelector('[name="client[clientAddress][adrStreet]"]').value = street;
-    document.querySelector('[name="client[clientAddress][adrHouse]"]').value = house;
-    document.querySelector('[name="client[clientAddress][adrEntrance]"]').value = entrance;
-    document.querySelector('[name="client[clientAddress][adrApartment]"]').value = apartment;
-    document.querySelector('[name="client[clientAddress][adrPostcode]"]').value = postalCode;
+    setValueWithChangeAndFocus('[name="client[clientAddress][adrDistrict]"]', district);
+    setValueWithChangeAndFocus('[name="client[clientAddress][adrCity]"]', town);
+    setValueWithChangeAndFocus('[name="client[clientAddress][adrStreet]"]', street);
+    setValueWithChangeAndFocus('[name="client[clientAddress][adrHouse]"]', house);
+    setValueWithChangeAndFocus('[name="client[clientAddress][adrEntrance]"]', entrance);
+    setValueWithChangeAndFocus('[name="client[clientAddress][adrApartment]"]', apartment);
+    setValueWithChangeAndFocus('[name="client[clientAddress][adrPostcode]"]', postalCode);
 
-    const password = Helper.generateRandomString(8) + Helper.getRandomInteger(0, 9);
-    document.querySelector('[name="password"]').value = password;
-    document.querySelector('[name="passwordVerification"]').value = password;
+    const password = Helper.generateRandomName(8) + Helper.getRandomInteger(0, 9);
+    setValueWithChangeAndFocus('[name="password"]', password);
+    setValueWithChangeAndFocus('[name="passwordVerification"]', password);
     document.querySelector('[name="password"]').type = 'text';
     document.querySelector('[name="passwordVerification"]').type = 'text';
 
-    document.querySelector('[name="acceptTerms').click();
-
+    if (!document.querySelector('[name="acceptTerms').checked) {
+      document.querySelector('[name="acceptTerms').click();
+    }
   }
 
   if (document.location.pathname === '/loan/application/apply/registration') {
