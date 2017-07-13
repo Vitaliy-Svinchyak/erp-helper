@@ -3,13 +3,16 @@
 }
 
 .btn {
+    width: 100%;
     text-decoration: none;
     color: #fff;
-    background-color: #26a69a;
+    background-color: #ff9c00;
     text-align: center;
     letter-spacing: .5px;
     transition: .2s ease-out;
     cursor: pointer;
+    border: 0 !important;
+    outline: none;
 }
 
 .material-button {
@@ -24,7 +27,7 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-.btn:hover{
-    background-color: #2bbbad;
+.btn:hover {
+    background-color: #f17700;
 }
 
