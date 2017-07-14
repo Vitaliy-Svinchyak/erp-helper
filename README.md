@@ -1,3 +1,8 @@
-#Возможности
-- Заполнять erp форму создания Application
-- Заполнять web форму создания Application
+# Возможности
+- Заполнять форму создания Application
+  - erp
+  - web
+- Заполнять Todo
+  - Credit Db Manual Check
+  - Id Document Check
+  - Household Bill Check

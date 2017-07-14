@@ -86,6 +86,7 @@ class Helper {
   static generateRandomDate(inFuture) {
     inFuture = inFuture || false;
     const year = inFuture ? Helper.generateRandomInteger(2018, 2020, 4) : Helper.generateRandomInteger(2000, 2016, 4);
+
     return Helper.generateRandomInteger(1, 28, 2).toString() + '/' +
       Helper.generateRandomInteger(1, 12, 2).toString() + '/' +
       year.toString();

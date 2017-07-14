@@ -6,14 +6,14 @@
     return false;
   }
 
-  function getInputsToFill() {
+  function getInputsToFill(formName) {
     return document
-      .querySelectorAll('form[name="client_id_document_form"] input:not([disabled]):not([type=hidden]):not([type=file]),select:not([disabled]):not(#application_status)');
+      .querySelectorAll(`form[name="${formName}"] fieldset:not([disabled]) input:not([disabled]):not([type=hidden]):not([type=file]),form[name="${formName}"]  fieldset:not([disabled]) select:not([disabled])`);
   }
 
-  function getSatisfactoryInputs() {
+  function getSatisfactoryInputs(formName) {
     return document
-      .querySelectorAll('form[name="client_id_document_form"] input[type="radio"]:not([disabled])');
+      .querySelectorAll(`form[name="${formName}"] fieldset:not([disabled]) input[type="radio"]:not([disabled])`);
   }
 
   function onTodoBodyChange(callback) {
@@ -33,9 +33,8 @@
     observerOfTodoBody.observe(target, {childList: true, subtree: true});
   }
 
-  function fillSatisfatoryInputs() {
-    for (const satisfactory of document
-      .querySelectorAll('form[name="client_id_document_form"] input[type="radio"]:not([disabled])')) {
+  function fillSatisfatoryInputs(formName) {
+    for (const satisfactory of getSatisfactoryInputs(formName)) {
 
       if (satisfactory.name.match(/\[[a-zA-Z]*]/)[0] === '[isSatisfactorily]' && satisfactory.value === '1') {
         satisfactory.click();
@@ -76,11 +75,11 @@
 
   function fillIdDocumentForm() {
     const addDocumentButton = document.querySelector('#add-id-document');
-
-    let inputsToFill = getInputsToFill();
+    const formName = 'client_id_document_form';
+    let inputsToFill = getInputsToFill(formName);
 
     const insertData = () => {
-      inputsToFill = getInputsToFill();
+      inputsToFill = getInputsToFill(formName);
 
       for (const input of inputsToFill) {
         switch (input.name.match(/\[[a-zA-Z]*]/)[0]) {
@@ -103,13 +102,59 @@
         }
       }
 
-      fillSatisfatoryInputs();
+      fillSatisfatoryInputs(formName);
     };
 
 
     if (inputsToFill.length === 0 && addDocumentButton) {
       onTodoBodyChange(insertData);
 
+      addDocumentButton.click();
+
+      return true;
+    } else if (inputsToFill.length === 0) {
+      return false;
+    }
+
+    insertData();
+  }
+
+  function fillHouseholdBillForm() {
+    const addDocumentButton = document.querySelector('#add-household-bill');
+    const billTypes = ['electricity', 'home_phone', 'other'];
+    const formName = 'client_household_bill_form';
+
+    let inputsToFill = getInputsToFill(formName);
+
+    const insertData = () => {
+      inputsToFill = getInputsToFill(formName);
+
+      for (const input of inputsToFill) {
+        switch (input.name.match(/\[[a-zA-Z]*]/)[0]) {
+          case'[billType]':
+            input.value = billTypes[Math.floor(Math.random() * billTypes.length)];
+            break;
+          case'[billPeriodStart]':
+            input.value = Helper.generateRandomDate();
+            break;
+          case'[billPeriodEnd]':
+            input.value = Helper.generateRandomDate(true);
+            break;
+          case'[isAddressTheSameInApplication]':
+            if (input.value === '1') {
+              input.click();
+            }
+            break;
+          default:
+            break;
+        }
+      }
+
+      fillSatisfatoryInputs(formName);
+    };
+
+    if (inputsToFill.length === 0 && addDocumentButton) {
+      onTodoBodyChange(insertData);
       addDocumentButton.click();
 
       return true;
@@ -127,6 +172,9 @@
       break;
     case 'id-document':
       fillIdDocumentForm();
+      break;
+    case 'household-bill':
+      fillHouseholdBillForm();
       break;
     default:
       break;
