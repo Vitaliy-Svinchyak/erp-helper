@@ -68,8 +68,8 @@ class Helper {
     return string;
   }
 
-  static generateRandomName(nameLength) {
-    const name = Helper.generateRandomString(nameLength);
+  static generateRandomName(nameLength, onlyEnghlish) {
+    const name = Helper.generateRandomString(nameLength, onlyEnghlish);
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
 

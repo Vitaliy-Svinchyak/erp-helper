@@ -77,6 +77,12 @@
     const selectedDivisionNumber = Helper.getRandomInteger(0, divisions.length - 1);
     setValueWithChangeAndFocus('[name="client[clientAddress][adrDivision]"]', divisions[selectedDivisionNumber].value);
 
+    const valuesText = document.querySelector('[name="address[adrId]').value + `8|${district}|${town}|${street}|${house}|${entrance}|${apartment}|${postalCode}|`;
+    const idText = document.querySelector('[name="address[adrText]"]').value + 'Berat|-1|-1|-1|-1|-1|-1|-1';
+
+    setValue('[name="address[adrId]"]', idText);
+    setValue('[name="address[adrText]"]', valuesText);
+
     setValueWithChangeAndFocus('[name="client[clientAddress][adrDistrict]"]', district);
     setValueWithChangeAndFocus('[name="client[clientAddress][adrCity]"]', town);
     setValueWithChangeAndFocus('[name="client[clientAddress][adrStreet]"]', street);
@@ -85,7 +91,7 @@
     setValueWithChangeAndFocus('[name="client[clientAddress][adrApartment]"]', apartment);
     setValueWithChangeAndFocus('[name="client[clientAddress][adrPostcode]"]', postalCode);
 
-    const password = Helper.generateRandomName(8) + Helper.getRandomInteger(0, 9);
+    const password = Helper.generateRandomName(8, true) + Helper.getRandomInteger(0, 9);
     setValueWithChangeAndFocus('[name="password"]', password);
     setValueWithChangeAndFocus('[name="passwordVerification"]', password);
     document.querySelector('[name="password"]').type = 'text';

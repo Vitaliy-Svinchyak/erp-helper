@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Mango automation",
-  "description": "For fun",
-  "version": "1.1.1",
+  "description": "For help",
+  "version": "1.1.2",
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html",
