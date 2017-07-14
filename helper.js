@@ -93,14 +93,25 @@ class Helper {
   }
 
   static setValue(selector, value) {
-    document.querySelector(selector).value = value;
+    let element;
+
+    if (typeof( selector ) === 'string') {
+      element = document.querySelector(selector);
+    } else {
+      element = selector;
+    }
+
+    element.value = value;
+
+    return element;
   }
 
   static setValueWithChangeAndFocus(selector, value) {
-    const element = document.querySelector(selector);
-    element.value = value;
+    const element = Helper.setValue(selector, value);
 
     element.dispatchEvent(new Event('change', {bubbles: true, cancelable: false}));
     element.dispatchEvent(new Event('focus', {bubbles: true, cancelable: false}));
+
+    return element;
   }
 }

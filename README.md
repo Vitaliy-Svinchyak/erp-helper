@@ -6,3 +6,4 @@
   - Credit Db Manual Check
   - Id Document Check
   - Household Bill Check
+  - Payslip Check

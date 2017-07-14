@@ -8,7 +8,7 @@
 
   function getInputsToFill(formName) {
     return document
-      .querySelectorAll(`form[name="${formName}"] fieldset:not([disabled]) input:not([disabled]):not([type=hidden]):not([type=file]),form[name="${formName}"]  fieldset:not([disabled]) select:not([disabled])`);
+      .querySelectorAll(`form[name="${formName}"] fieldset:not([disabled]) input:not([disabled]):not([type=hidden]):not([type=file]):not([readonly]),form[name="${formName}"]  fieldset:not([disabled]) select:not([disabled])`);
   }
 
   function getSatisfactoryInputs(formName) {
@@ -165,6 +165,59 @@
     insertData();
   }
 
+  function fillPayrollOrIrsForm() {
+    const addDocumentButton = document.querySelector('#add-payroll-or-irs');
+    const formName = 'client_payroll_or_irs_form';
+
+    let inputsToFill = getInputsToFill(formName);
+
+    const insertData = () => {
+      inputsToFill = getInputsToFill(formName);
+      for (const input of inputsToFill) {
+        switch (input.name.match(/\[[a-zA-Z]*]/)[0]) {
+          case'[occupation]':
+          case'[employerName]':
+            input.value = Helper.generateRandomName();
+            break;
+          case'[additionalIncome]':
+            if (input.type === 'number') {
+              input.value = Helper.generateRandomInteger(300, 3000);
+            } else {
+              const additionalIncomTypes = input.children;
+              let randomKey = Math.floor(Math.random() * additionalIncomTypes.length);
+
+              if (randomKey === 0) {
+                randomKey++;
+              }
+
+              input.value = additionalIncomTypes[randomKey].value;
+            }
+            break;
+          case'[income]':
+            if (input.classList.contains('money_amount_inp')) {
+              input.value = Helper.generateRandomInteger(300, 3000);
+            }
+            break;
+          default:
+            break;
+        }
+      }
+      Helper.setValueWithChangeAndFocus(inputsToFill[2], inputsToFill[2].value);
+      fillSatisfatoryInputs(formName);
+    };
+
+    if (inputsToFill.length === 0 && addDocumentButton) {
+      onTodoBodyChange(insertData);
+      addDocumentButton.click();
+
+      return true;
+    } else if (inputsToFill.length === 0) {
+      return false;
+    }
+
+    insertData();
+  }
+
 
   switch (locationArr[4]) {
     case 'creditdb-update':
@@ -175,6 +228,9 @@
       break;
     case 'household-bill':
       fillHouseholdBillForm();
+      break;
+    case 'payroll-or-irs':
+      fillPayrollOrIrsForm();
       break;
     default:
       break;
