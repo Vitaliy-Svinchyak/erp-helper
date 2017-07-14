@@ -1,8 +1,46 @@
 (function() {
+  let observerOfTodoBody;
   const locationArr = window.location.pathname.split('/');
 
   if (locationArr[1] !== 'applications' || locationArr[2] !== 'todo') {
     return false;
+  }
+
+  function getInputsToFill() {
+    return document
+      .querySelectorAll('form[name="client_id_document_form"] input:not([disabled]):not([type=hidden]):not([type=file]),select:not([disabled]):not(#application_status)');
+  }
+
+  function getSatisfactoryInputs() {
+    return document
+      .querySelectorAll('form[name="client_id_document_form"] input[type="radio"]:not([disabled])');
+  }
+
+  function onTodoBodyChange(callback) {
+    const target = document.querySelector('.todo_col2');
+    if (observerOfTodoBody) {
+      observerOfTodoBody.disconnect();
+    }
+
+    observerOfTodoBody = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.addedNodes.length) {
+          callback();
+        }
+      });
+    });
+
+    observerOfTodoBody.observe(target, {childList: true, subtree: true});
+  }
+
+  function fillSatisfatoryInputs() {
+    for (const satisfactory of document
+      .querySelectorAll('form[name="client_id_document_form"] input[type="radio"]:not([disabled])')) {
+
+      if (satisfactory.name.match(/\[[a-zA-Z]*]/)[0] === '[isSatisfactorily]' && satisfactory.value === '1') {
+        satisfactory.click();
+      }
+    }
   }
 
   function fillCreditDbUpdateTodo() {
@@ -39,12 +77,11 @@
   function fillIdDocumentForm() {
     const addDocumentButton = document.querySelector('#add-id-document');
 
-    let inputsToFill = document
-      .querySelectorAll('form[name="client_id_document_form"] input:not([disabled]):not([type=hidden]):not([type=file]),select:not([disabled]):not(#application_status)');
+    let inputsToFill = getInputsToFill();
 
     const insertData = () => {
-      inputsToFill = document
-        .querySelectorAll('form[name="client_id_document_form"] input:not([disabled]):not([type=hidden]):not([type=file]),select:not([disabled]):not(#application_status)');
+      inputsToFill = getInputsToFill();
+
       for (const input of inputsToFill) {
         switch (input.name.match(/\[[a-zA-Z]*]/)[0]) {
           case'[documentType]':
@@ -66,35 +103,21 @@
         }
       }
 
-      for (const satisfactory of document
-        .querySelectorAll('form[name="client_id_document_form"] input[type="radio"]:not([disabled])')) {
-
-        if (satisfactory.name.match(/\[[a-zA-Z]*]/)[0] === '[isSatisfactorily]' && satisfactory.value === '1') {
-          satisfactory.click();
-        }
-      }
+      fillSatisfatoryInputs();
     };
 
 
     if (inputsToFill.length === 0 && addDocumentButton) {
-      const target = document.querySelector('.todo_col2');
-
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.addedNodes.length) {
-            insertData();
-          }
-        });
-      });
-
-      observer.observe(target, {childList: true, subtree: true});
+      onTodoBodyChange(insertData);
 
       addDocumentButton.click();
+
+      return true;
     } else if (inputsToFill.length === 0) {
       return false;
-    } else {
-      insertData();
     }
+
+    insertData();
   }
 
 
