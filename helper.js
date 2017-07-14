@@ -27,17 +27,25 @@ class Helper {
     return YY + MM + DD + SSS + C;
   }
 
-  static generateRandomString(length) {
-    length = length | Helper.getRandomInteger(3, 10);
-    const consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'k', 'l', 'm',
-      'n', 'p', 'q', 'r', 's', 't', 'v', 'x', 'z'];
-    const vowels = ['a', 'e', 'o', 'u', 'y', 'i'];
+  static generateRandomString(stringLength, onlyEnghlish) {
+    stringLength = stringLength || Helper.getRandomInteger(3, 10);
+    onlyEnghlish = onlyEnghlish || false;
+    let consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'k', 'l', 'm',
+      'n', 'p', 'q', 'r', 's', 't', 'v', 'x', 'z', 'dh', 'gj', 'll', 'nj', 'rr', 'th', 'xh', 'zh',
+      'sf', 'tj', 'kr', 'nd', 'kz', 'st', 'nc', 'mb'];
+    let vowels = ['a', 'e', 'o', 'u', 'y', 'i', 'ye'];
+
+    if (!onlyEnghlish) {
+      consonants = consonants.concat(['ç']);
+      vowels = vowels.concat(['ë', 'ë', 'ë']);
+    }
+
     let i = 0;
     let string = '';
     let lastLetterType = Helper.getRandomInteger(0, 2);
 
 
-    while (i < length) {
+    while (i < stringLength) {
       let letter;
 
       if (lastLetterType === 0) {
@@ -46,6 +54,10 @@ class Helper {
       } else {
         letter = vowels[Helper.getRandomInteger(0, vowels.length - 1)];
         lastLetterType = 0;
+      }
+
+      if (letter.length > 1 && i + 1 === stringLength) {
+        stringLength++;
       }
 
       string += letter;
@@ -62,7 +74,7 @@ class Helper {
   }
 
   static generateRandomEmail() {
-    return Helper.generateRandomString() + '@' + Helper.generateRandomString() + '.com';
+    return Helper.generateRandomString(null, true) + '@' + Helper.generateRandomString(4, true) + '.com';
   }
 
   static generateRandomMobilePhone() {
