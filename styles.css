@@ -13,6 +13,7 @@
     cursor: pointer;
     border: 0 !important;
     outline: none;
+    margin: 5px;
 }
 
 .material-button {
