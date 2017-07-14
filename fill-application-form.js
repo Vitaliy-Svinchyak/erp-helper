@@ -13,6 +13,7 @@
   }
 
   function fillErpApplication() {
+    setValue('[name="service[amount][amount]"]', 10000);
     setValue('[name="client[clientIdentificator]"]', Helper.getRandomMap());
     setValue('[name="client[name]"]', Helper.generateRandomName());
     setValue('[name="client[fathersName]"]', Helper.generateRandomName());
