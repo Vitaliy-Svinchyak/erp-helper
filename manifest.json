@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Mango automation",
   "description": "For help",
-  "version": "1.2.6",
+  "version": "1.3",
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html",
@@ -19,12 +19,22 @@
         "*://*/*"
       ],
       "js": [
-        "helper.js"
+        "content-scripts/helper.js",
+        "content-scripts/filler.js",
+        "content-scripts/content.js"
       ],
       "run_at": "document_end",
       "all_frames": true
     }
   ],
+  "externally_connectable": {
+    "matches": [
+      "*://*.erp.al/*"
+    ]
+  },
+  "background": {
+    "scripts": ["plugin-scripts/background.js"]
+  },
   "permissions": [
     "activeTab",
     "tabs"
