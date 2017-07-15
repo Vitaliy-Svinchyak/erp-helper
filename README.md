@@ -7,3 +7,6 @@
   - Id Document Check
   - Household Bill Check
   - Payslip Check
+  - Client Primary Info
+  - Employer Info
+  - Bank Account

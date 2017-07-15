@@ -18,16 +18,13 @@
 
   function onTodoBodyChange(callback) {
     const target = document.querySelector('.todo_col2');
-    if (observerOfTodoBody) {
-      observerOfTodoBody.disconnect();
-    }
 
     observerOfTodoBody = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.addedNodes.length) {
+      mutations.filter(m => m.addedNodes.length)
+        .forEach(() => {
           callback();
-        }
-      });
+          observerOfTodoBody.disconnect();
+        });
     });
 
     observerOfTodoBody.observe(target, {childList: true, subtree: true});
@@ -202,7 +199,7 @@
             break;
         }
       }
-      Helper.setValueWithChangeAndFocus(inputsToFill[2], inputsToFill[2].value);
+      Helper.setValueWithChangeAndFocus(inputsToFill[3], inputsToFill[3].value);
       fillSatisfatoryInputs(formName);
     };
 
@@ -218,6 +215,56 @@
     insertData();
   }
 
+  function fillPrimaryInfoForm() {
+    Helper.setValue('[name="client[homePhone]"]', Helper.generateRandomHomePhone());
+  }
+
+  function fillEmployerForm() {
+    Helper.setValueWithChangeAndFocus('[name="client[clientEmploymentStatus]"]', 1);
+    Helper.setValue('[name="client[clientEmployers][0][dateOfEmployment]"]', Helper.generateRandomDate());
+    Helper.setValue('[name="client[clientEmployers][0][title]"]', Helper.generateRandomName());
+    Helper.setValue('[name="client[clientEmployers][0][contactPerson]"]', Helper.generateRandomName());
+    Helper.setValue('[name="client[clientEmployers][0][email]"]', Helper.generateRandomEmail());
+    Helper.setValue('[name="client[clientEmployers][0][phone]"]', Helper.generateRandomHomePhone());
+  }
+
+  function fillBankAccountForm() {
+    document.querySelector('input[name="isPrimary"][value="1"]').click();
+    const select = document.querySelector('select[name="bankAccount"]');
+    const options = select.children;
+    let bankName;
+
+    for (const option of options) {
+      if (option.nodeName !== 'OPTGROUP') {
+        continue;
+      }
+
+      bankName = option.label;
+      select.value = option.children[0].value;
+      break;
+    }
+
+    const target = document.querySelector('.tt-menu');
+
+    const observerOfSuggestions = new MutationObserver((mutations) => {
+      mutations
+        .filter(mutation => mutation.attributeName === 'class')
+        .forEach(() => {
+          for (const variant of document.querySelectorAll('.tt-suggestion.tt-selectable')) {
+            if (variant.textContent === bankName) {
+              variant.click();
+              observerOfSuggestions.disconnect();
+              observerOfSuggestions.disconnect()
+            }
+          }
+        });
+    });
+
+    observerOfSuggestions.observe(target, {attributes: true});
+
+    Helper.setValueWithChangeAndFocus('input[name="bankName"]', bankName);
+  }
+
 
   switch (locationArr[4]) {
     case 'creditdb-update':
@@ -231,6 +278,15 @@
       break;
     case 'payroll-or-irs':
       fillPayrollOrIrsForm();
+      break;
+    case 'client-primary-info':
+      fillPrimaryInfoForm();
+      break;
+    case 'employer-and-insurance':
+      fillEmployerForm();
+      break;
+    case 'bank-account-confirmation':
+      fillBankAccountForm();
       break;
     default:
       break;

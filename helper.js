@@ -83,6 +83,10 @@ class Helper {
     return startNumber.toString() + Helper.generateRandomInteger(1111111, 9999999).toString();
   }
 
+  static generateRandomHomePhone() {
+    return '4' + Helper.generateRandomInteger(1111111, 9999999).toString();
+  }
+
   static generateRandomDate(inFuture) {
     inFuture = inFuture || false;
     const year = inFuture ? Helper.generateRandomInteger(2018, 2020, 4) : Helper.generateRandomInteger(2000, 2016, 4);
