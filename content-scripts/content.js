@@ -7,6 +7,9 @@ const erpHelperRouter = {
       case 'todo':
         erpHelperRouter.fillTodo();
         break;
+      case 'achievement':
+        Filler.renderAchievement(options.data);
+        break;
       default:
         break;
     }
