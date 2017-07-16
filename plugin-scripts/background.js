@@ -66,6 +66,11 @@ window.onload = function() {
         'everybody_dance_now',
         'rompasso_angetenar',
         'uptown_funk',
+        'bear_song',
+        'dance_with_bear',
+        'pod_drum_legko',
+        'pritoptat',
+        'yadrenost'
       ];
       const audioName = audioVariants[Math.floor(Math.random() * audioVariants.length)];
       (new Audio(`audio/${audioName}.mp3`)).play();
