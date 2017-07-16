@@ -31,11 +31,6 @@
       "all_frames": true
     }
   ],
-  "externally_connectable": {
-    "matches": [
-      "*://*.erp.al/*"
-    ]
-  },
   "background": {
     "scripts": [
       "plugin-scripts/background.js"
