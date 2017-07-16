@@ -8,7 +8,10 @@ const erpHelperRouter = {
         erpHelperRouter.fillTodo();
         break;
       case 'achievement':
-        Filler.renderAchievement(options.data);
+        AchivementHelper.renderAchievement(options.data);
+        break;
+      case 'check404':
+        AchivementHelper.check404();
         break;
       default:
         break;

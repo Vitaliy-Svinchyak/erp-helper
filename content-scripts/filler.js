@@ -1,48 +1,4 @@
-let achievementId = 0;
-
 class Filler {
-
-  static renderAchievementContainer() {
-    if (!document.querySelector('.achievement-container')) {
-      const container = '<div class="achievement-container"></div>';
-      document.body.insertAdjacentHTML('beforeend', container);
-      document.querySelector('.achievement-container').addEventListener('click', e => {
-        if (e.target.classList.contains('hide-achievement')) {
-          e.target.parentNode.remove();
-        }
-      });
-    }
-
-    return document.querySelector('.achievement-container');
-  }
-
-  static renderAchievement(object) {
-    achievementId++;
-    const body = `
-    <div class="achievement" id="achievement_${achievementId}">
-        <div class="achievement-image">
-            <img src="${object.icon}" alt="">
-        </div>
-        <div class="achievement-name">
-            ${object.name}
-        </div>
-        <div class="achievement-description">
-            ${object.description}
-        </div>
-        <div class="hide-achievement">&times;</div>
-    </div>
-    `;
-    Filler.renderAchievementContainer().insertAdjacentHTML('beforeend', body);
-
-    setTimeout(() => {
-      let id = achievementId;
-      document.querySelector(`#achievement_${id}`).classList.add('achievement-appear')
-    }, 100);
-    setTimeout(() => {
-      let id = achievementId;
-      document.querySelector(`#achievement_${id}`).remove();
-    }, 10000)
-  }
 
   static fillCmsApplication() {
     Helper.setValueWithChangeAndFocus('[name="identificationNumber"]', Helper.getRandomMap());

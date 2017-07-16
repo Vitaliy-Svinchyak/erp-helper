@@ -21,7 +21,11 @@
       "js": [
         "content-scripts/helper.js",
         "content-scripts/filler.js",
+        "content-scripts/achivementHelper.js",
         "content-scripts/content.js"
+      ],
+      "css": [
+        "content-scripts/content.css"
       ],
       "run_at": "document_end",
       "all_frames": true
@@ -33,7 +37,9 @@
     ]
   },
   "background": {
-    "scripts": ["plugin-scripts/background.js"]
+    "scripts": [
+      "plugin-scripts/background.js"
+    ]
   },
   "permissions": [
     "activeTab",

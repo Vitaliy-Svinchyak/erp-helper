@@ -9,6 +9,11 @@ window.onload = function() {
       icon: 'https://image.flaticon.com/icons/svg/297/297558.svg',
       name: 'Рероллер-мотороллер',
       description: 'Заполнить форму Application 10 раз за 10 секунд',
+    },
+    page_404: {
+      icon: 'https://image.flaticon.com/icons/svg/103/103085.svg',
+      name: 'Опаньки',
+      description: 'Попасть на страницу 404',
     }
   };
 
@@ -52,6 +57,29 @@ window.onload = function() {
       }
     }
   };
+  window.achievment = {
+    on404: () => {
+      const audioVariants = [
+        'big_smo_working',
+        'come_on_over',
+        'oh_no',
+        'everybody_dance_now',
+        'rompasso_angetenar',
+        'uptown_funk',
+      ];
+      const audioName = audioVariants[Math.floor(Math.random() * audioVariants.length)];
+      (new Audio(`audio/${audioName}.mp3`)).play();
+
+      if (localStorage.getItem('404_achievment')) {
+        return false;
+      }
+
+      chrome.tabs.getSelected(null, function(tabs) {
+        chrome.tabs.sendMessage(tabs.id, {action: "achievement", data: achievments.page_404});
+      });
+      localStorage.setItem('404_achievment', 1);
+    }
+  };
 
   const factory = (options) => {
     if (options && options.class && options.method) {
@@ -68,4 +96,7 @@ window.onload = function() {
     port.onMessage.addListener(factory);
   });
 
+  chrome.tabs.onUpdated.addListener(function(tabId,) {
+    chrome.tabs.sendMessage(tabId, {action: "check404"});
+  });
 };
