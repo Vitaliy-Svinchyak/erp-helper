@@ -1,34 +1,44 @@
 .container {
-    min-width: 300px;
+  min-width: 300px;
 }
 
 .btn {
-    width: 100%;
-    text-decoration: none;
-    color: #fff;
-    background-color: #ff9c00;
-    text-align: center;
-    letter-spacing: .5px;
-    transition: .2s ease-out;
-    cursor: pointer;
-    border: 0 !important;
-    outline: none;
-    margin: 5px;
+  width: 100%;
+  text-decoration: none;
+  color: #fff;
+  background-color: #ff9c00;
+  text-align: center;
+  letter-spacing: .5px;
+  transition: .2s ease-out;
+  cursor: pointer;
+  border: 0 !important;
+  outline: none;
+  margin: 5px;
 }
 
 .material-button {
-    border: none;
-    border-radius: 2px;
-    display: inline-block;
-    height: 36px;
-    line-height: 36px;
-    padding: 0 2rem;
-    text-transform: uppercase;
-    vertical-align: middle;
-    -webkit-tap-highlight-color: transparent;
+  border: none;
+  border-radius: 2px;
+  display: inline-block;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 2rem;
+  text-transform: uppercase;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.icon-button {
+  width: 45px;
+  padding: 0 5px;
+}
+
+.icon-button img {
+  width: 34px;
+  fill: white;
 }
 
 .btn:hover {
-    background-color: #f17700;
+  background-color: #f17700;
 }
 
