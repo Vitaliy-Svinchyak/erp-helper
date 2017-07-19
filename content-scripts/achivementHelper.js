@@ -37,10 +37,10 @@ class AchivementHelper {
             let id = achievementId;
             document.querySelector(`#achievement_${id}`).classList.add('achievement-appear')
         }, 100);
-        // setTimeout(() => {
-        //   let id = achievementId;
-        //   document.querySelector(`#achievement_${id}`).remove();
-        // }, 10000)
+        setTimeout(() => {
+            let id = achievementId;
+            document.querySelector(`#achievement_${id}`).remove();
+        }, 10000);
     }
 
     static check404() {

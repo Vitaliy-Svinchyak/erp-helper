@@ -29,6 +29,14 @@ function initalizePlugin() {
         } else {
             localStorage.setItem('audio', 0);
             document.querySelector('#toggle-music img').src = 'icons/speaker-off.svg';
+            const port = chrome.extension.connect();
+            port.postMessage(
+                {
+                    'class': 'application',
+                    'method': 'pauseMusic'
+                }
+            );
+            port.disconnect();
         }
     });
 }

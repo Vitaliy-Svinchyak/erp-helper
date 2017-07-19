@@ -1,8 +1,17 @@
 window.onload = function () {
+    const audio = new Audio();
 
     function musicEnabled() {
         const music = localStorage.getItem('audio');
         return music === null || +music === 1;
+    }
+
+    function playMusic(trackName) {
+        if (musicEnabled() && audio.paused) {
+            localStorage.setItem('audio_start', (new Date()).getTime());
+            audio.src = `audio/${trackName}.mp3`;
+            audio.play();
+        }
     }
 
     let statisticForAchievments = {
@@ -44,7 +53,6 @@ window.onload = function () {
             }
         },
 
-
         checkAchievments: () => {
             if (localStorage.getItem('reroller_achievment')) {
                 return false;
@@ -53,15 +61,17 @@ window.onload = function () {
             const currentHistory = statisticForAchievments.reroller;
 
             if (currentHistory.length === 10 && currentHistory[0] > +(new Date()).getTime() - 10000) {
-                if (musicEnabled()) {
-                    (new Audio('audio/rolling.mp3')).play();
-                }
+                playMusic('rolling');
 
                 chrome.tabs.getSelected(null, function (tabs) {
                     chrome.tabs.sendMessage(tabs.id, {action: "achievement", data: achievments.reroller});
                 });
                 localStorage.setItem('reroller_achievment', 1);
             }
+        },
+
+        pauseMusic: () => {
+            audio.pause();
         }
     };
     window.achievment = {
@@ -80,16 +90,7 @@ window.onload = function () {
                 'yadrenost'
             ];
             const audioName = audioVariants[Math.floor(Math.random() * audioVariants.length)];
-
-            if (
-                localStorage.getItem('audio_start') < (new Date()).getTime() - 15000
-                && musicEnabled()
-            ) {
-                const audio = new Audio(`audio/${audioName}.mp3`);
-                localStorage.setItem('audio_start', (new Date()).getTime());
-                localStorage.setItem('audio_duration', 20);
-                audio.play();
-            }
+            playMusic(audioName);
 
             if (localStorage.getItem('404_achievment')) {
                 return false;
