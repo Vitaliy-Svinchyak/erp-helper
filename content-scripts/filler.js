@@ -70,7 +70,7 @@ class Filler {
         Helper.setValue('[name="client[documentNumber]"]', Helper.generateRandomInteger(1000, 100000));
         document.querySelector('[data-normalized-text="Passport"]').click();
 
-        const district = Helper.generateRandomName();
+        const division = Helper.generateRandomName();
         const town = Helper.generateRandomName();
         const street = Helper.generateRandomName();
         const house = Helper.generateRandomInteger(1, 999);
@@ -78,20 +78,20 @@ class Filler {
         const apartment = Helper.generateRandomInteger(1, 999);
         const postalCode = Helper.generateRandomInteger(1, 999);
 
-        const divisions = document.querySelector('[name="client[adrDivision]"]').children;
+        const divisions = document.querySelector('[name="client[adrDistrict]"]').children;
         const selectedDivisionNumber = Helper.generateRandomInteger(0, divisions.length - 1);
         document.querySelector(
-            '[name="client[adrDivision]"] + .bootstrap-select li[data-original-index="'
+            '[name="client[adrDistrict]"] + .bootstrap-select li[data-original-index="'
             + selectedDivisionNumber + '"] a'
         ).click();
 
         const valuesText = document.querySelector('[name="client[adrId][text]').value
-            + `|${district}|${town}|${street}|${house}|${entrance}|${apartment}|${postalCode}|`;
+            + `|${division}|${town}|${street}|${house}|${entrance}|${apartment}|${postalCode}|`;
         const idText = document.querySelector('[name="client[adrId][id]"]').value + '|-1|-1|-1|-1|-1|-1|-1';
 
         Helper.setValue('[name="client[adrId][id]"]', idText);
         Helper.setValue('[name="client[adrId][text]', valuesText);
-        Helper.setValue('[name="client[adrDistrict]"]', district);
+        Helper.setValue('[name="client[adrDivision]"]', division);
         Helper.setValue('[name="client[adrCity]"]', town);
         Helper.setValue('[name="client[adrStreet]"]', street);
         Helper.setValue('[name="client[adrHouse]"]', house);
