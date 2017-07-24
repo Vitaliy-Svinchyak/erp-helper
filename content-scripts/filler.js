@@ -8,35 +8,32 @@ class Filler {
         Helper.setValueWithChangeAndFocus('[name="email"]', Helper.generateRandomEmail());
         Helper.setValueWithChangeAndFocus('[name="phone"]', Helper.generateRandomMobilePhone());
 
-        const district = Helper.generateRandomName();
+        const division = Helper.generateRandomName();
         const town = Helper.generateRandomName();
         const street = Helper.generateRandomName();
         const house = Helper.generateRandomInteger(1, 999);
         const entrance = Helper.generateRandomInteger(1, 999);
         const apartment = Helper.generateRandomInteger(1, 999);
-        const postalCode = Helper.generateRandomInteger(1, 999);
+        const postalCode = Helper.generateRandomInteger(1111, 9999);
 
-        const divisions = document.querySelector('[name="client[clientAddress][adrDivision]"]').children;
-        const selectedDivisionNumber = Helper.generateRandomInteger(0, divisions.length - 1);
-        Helper.setValueWithChangeAndFocus(
-            '[name="client[clientAddress][adrDivision]"]',
-            divisions[selectedDivisionNumber].value
-        );
+        const districts = document.querySelector('[name="address[adrDistrict]"]').children;
+        const selectedDistrictNumber = Helper.generateRandomInteger(0, districts.length - 1);
+        const district = districts[selectedDistrictNumber].value;
 
-        const valuesText = document.querySelector('[name="address[adrId]').value
-            + `8|${district}|${town}|${street}|${house}|${entrance}|${apartment}|${postalCode}|`;
-        const idText = document.querySelector('[name="address[adrText]"]').value + 'Berat|-1|-1|-1|-1|-1|-1|-1';
+        const valuesText = `${district}|${division}|${town}|${street}|${house}|${entrance}|${apartment}|${postalCode}|`;
+        const idText = `${district}|-1|-1|-1|-1|-1|-1|-1`;
 
-        Helper.setValue('[name="address[adrId]"]', idText);
-        Helper.setValue('[name="address[adrText]"]', valuesText);
+        Helper.setValue('[name="address[adrId][id]"]', idText);
+        Helper.setValue('[name="address[adrId][text]"]', valuesText);
 
-        Helper.setValueWithChangeAndFocus('[name="client[clientAddress][adrDistrict]"]', district);
-        Helper.setValueWithChangeAndFocus('[name="client[clientAddress][adrCity]"]', town);
-        Helper.setValueWithChangeAndFocus('[name="client[clientAddress][adrStreet]"]', street);
-        Helper.setValueWithChangeAndFocus('[name="client[clientAddress][adrHouse]"]', house);
-        Helper.setValueWithChangeAndFocus('[name="client[clientAddress][adrEntrance]"]', entrance);
-        Helper.setValueWithChangeAndFocus('[name="client[clientAddress][adrApartment]"]', apartment);
-        Helper.setValueWithChangeAndFocus('[name="client[clientAddress][adrPostcode]"]', postalCode);
+        Helper.setValue('[name="address[adrDistrict]"]', district);
+        Helper.setValueWithChangeAndFocus('[name="address[adrDivision]"]', division);
+        Helper.setValueWithChangeAndFocus('[name="address[adrCity]"]', town);
+        Helper.setValueWithChangeAndFocus('[name="address[adrStreet]"]', street);
+        Helper.setValueWithChangeAndFocus('[name="address[adrHouse]"]', house);
+        Helper.setValueWithChangeAndFocus('[name="address[adrEntrance]"]', entrance);
+        Helper.setValueWithChangeAndFocus('[name="address[adrApartment]"]', apartment);
+        Helper.setValueWithChangeAndFocus('[name="address[adrPostcode]"]', postalCode);
 
         const password = Helper.generateRandomName(8, true) + Helper.generateRandomInteger(0, 9);
         Helper.setValueWithChangeAndFocus('[name="password"]', password);
@@ -78,11 +75,11 @@ class Filler {
         const apartment = Helper.generateRandomInteger(1, 999);
         const postalCode = Helper.generateRandomInteger(1, 999);
 
-        const divisions = document.querySelector('[name="client[adrDistrict]"]').children;
-        const selectedDivisionNumber = Helper.generateRandomInteger(0, divisions.length - 1);
+        const districts = document.querySelector('[name="client[adrDistrict]"]').children;
+        const selectedDistrictNumber = Helper.generateRandomInteger(0, districts.length - 1);
         document.querySelector(
             '[name="client[adrDistrict]"] + .bootstrap-select li[data-original-index="'
-            + selectedDivisionNumber + '"] a'
+            + selectedDistrictNumber + '"] a'
         ).click();
 
         const valuesText = document.querySelector('[name="client[adrId][text]').value
