@@ -412,4 +412,12 @@ class Filler {
 
         document.querySelector('#manual_assign_btn').click();
     }
+
+    static fillClientRegistration() {
+        Filler.fillCmsApplication();
+        Helper.setValue('[data-addr="fullAddress"]', document.querySelector('[name="address[adrId][text]"]').value);
+        const currentId = document.querySelector('[name="address[adrId][id]"]').value.split('|');
+        currentId[0] = 10000;
+        Helper.setValue('[name="address[adrId][id]"]', currentId.join('|'));
+    }
 }

@@ -69,6 +69,9 @@ const erpHelperRouter = {
             case '/payments/add-external-credit-payment-for-invoices':
                 Filler.fillPayment();
                 break;
+            case '/registration/new-client-registration':
+                Filler.fillClientRegistration();
+                break;
             default:
                 break;
         }

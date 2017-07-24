@@ -14,6 +14,7 @@
 - Заполнять форму
   - Создание payment
   - Assign payment
+  - Client registration
   
  Сочетания клавиш: 
  - Заполнить форму - ctrl + Q
