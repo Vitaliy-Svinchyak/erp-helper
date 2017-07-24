@@ -65,3 +65,9 @@ const erpHelperRouter = {
 };
 
 chrome.runtime.onMessage.addListener(erpHelperRouter.route);
+
+window.document.body.addEventListener('keydown', e => {
+    if (e.ctrlKey && e.code === 'KeyQ') {
+        erpHelperRouter.route({action: 'fill'});
+    }
+});
