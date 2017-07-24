@@ -72,6 +72,12 @@ const erpHelperRouter = {
             default:
                 break;
         }
+
+        const pathParts = document.location.pathname.split('/');
+        if (pathParts[1] === 'payments' && pathParts[2] === 'edit') {
+            Filler.assignPayment();
+        }
+
     }
 };
 

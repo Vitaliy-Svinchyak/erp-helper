@@ -382,9 +382,34 @@ class Filler {
         Helper.setValueWithChangeAndFocus('#recipientBankClassificator', receipient);
 
         const methods = document.querySelector('#paymentMethod').children;
-        const selectedMethodNumber = Helper.generateRandomInteger(0, methods.length - 1);
+        const selectedMethodNumber = Helper.generateRandomInteger(1, methods.length);
         const method = methods[selectedMethodNumber].value;
+        console.log(selectedMethodNumber);
         Helper.setValue('#paymentMethod', method);
         Helper.setValue('#amount_inp', 10000);
+    }
+
+    static assignPayment() {
+        const xpath = '//td[text()="Payment info"]';
+        const matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        const invoiceNumber = matchingElement.parentNode.children[1].textContent;
+        Helper.setValue('#manual_assign_object_text', invoiceNumber);
+        Helper.setValue('#comment_inp', invoiceNumber);
+
+        const target = document.querySelector('#erpPopup');
+
+        Filler.observerOfPopup = new MutationObserver((mutations) => {
+            mutations.filter(m => m.addedNodes.length)
+                .forEach((a) => {
+                    document.querySelector('#erpPopup iframe').addEventListener('load', () => {
+                        document.querySelector('#erpPopup iframe').contentDocument.querySelector('#assignment_btn').click();
+                    });
+                    Filler.observerOfPopup.disconnect();
+                });
+        });
+
+        Filler.observerOfPopup.observe(target, {childList: true, subtree: true});
+
+        document.querySelector('#manual_assign_btn').click();
     }
 }

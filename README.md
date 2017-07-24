@@ -11,6 +11,9 @@
   - Client Primary Info
   - Employer Info
   - Bank Account
+- Заполнять форму
+  - Создание payment
+  - Assign payment
   
  Сочетания клавиш: 
  - Заполнить форму - ctrl + Q
