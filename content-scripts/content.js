@@ -4,6 +4,7 @@ const erpHelperRouter = {
             case 'fill':
                 erpHelperRouter.fillApplication();
                 erpHelperRouter.fillTodo();
+                erpHelperRouter.fillTrifle();
                 break;
             case 'achievement':
                 AchivementHelper.renderAchievement(options.data);
@@ -57,6 +58,16 @@ const erpHelperRouter = {
                 break;
             case 'bank-account-confirmation':
                 Filler.fillBankAccountForm();
+                break;
+            default:
+                break;
+        }
+    },
+
+    fillTrifle: () => {
+        switch (document.location.pathname) {
+            case '/payments/add-external-credit-payment-for-invoices':
+                Filler.fillPayment();
                 break;
             default:
                 break;

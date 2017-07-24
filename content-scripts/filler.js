@@ -374,4 +374,17 @@ class Filler {
 
         Helper.setValueWithChangeAndFocus('input[name="bankName"]', bankName);
     }
+
+    static fillPayment() {
+        const receipients = document.querySelector('#recipientBankClassificator').children;
+        const selectedReceipientNumber = Helper.generateRandomInteger(0, receipients.length - 1);
+        const receipient = receipients[selectedReceipientNumber].value;
+        Helper.setValueWithChangeAndFocus('#recipientBankClassificator', receipient);
+
+        const methods = document.querySelector('#paymentMethod').children;
+        const selectedMethodNumber = Helper.generateRandomInteger(0, methods.length - 1);
+        const method = methods[selectedMethodNumber].value;
+        Helper.setValue('#paymentMethod', method);
+        Helper.setValue('#amount_inp', 10000);
+    }
 }
