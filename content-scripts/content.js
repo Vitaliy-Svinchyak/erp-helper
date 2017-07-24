@@ -1,10 +1,8 @@
 const erpHelperRouter = {
     route: (options) => {
         switch (options.action) {
-            case 'application':
+            case 'fill':
                 erpHelperRouter.fillApplication();
-                break;
-            case 'todo':
                 erpHelperRouter.fillTodo();
                 break;
             case 'achievement':

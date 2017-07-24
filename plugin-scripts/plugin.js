@@ -8,19 +8,12 @@ function initalizePlugin() {
         document.querySelector('#toggle-music img').src = 'icons/speaker-off.svg';
     }
 
-    document.querySelector('#fill-erp-create-application')
+    document.querySelector('#fill-it')
         .addEventListener('click', () => {
             chrome.tabs.getSelected(null, tabs => {
-                chrome.tabs.sendMessage(tabs.id, {action: "application"});
+                chrome.tabs.sendMessage(tabs.id, {action: "fill"});
             });
-        });
-
-    document.querySelector('#fill-todo')
-        .addEventListener('click', () => {
-            chrome.tabs.getSelected(null, tabs => {
-                chrome.tabs.sendMessage(tabs.id, {action: "todo"});
-            });
-        });
+        })
 
     document.querySelector('#toggle-music img').addEventListener('click', () => {
         if (+localStorage.getItem('audio') === 0) {

@@ -34,7 +34,8 @@
 }
 
 .icon-button img {
-  width: 34px;
+  width: 25px;
+  margin-top: 5px;
   fill: white;
 }
 
