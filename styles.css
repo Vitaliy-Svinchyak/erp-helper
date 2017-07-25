@@ -253,7 +253,7 @@ a {
 
 .tgl-ios + .tgl-btn:after {
     border-radius: 2em;
-    color: white;
+    color: #d3d4d4;
     content: "♬";
     font-size: 16px;
     text-align: center;

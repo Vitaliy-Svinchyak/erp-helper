@@ -91,3 +91,6 @@ window.document.body.addEventListener('keydown', e => {
         erpHelperRouter.route({action: 'fill'});
     }
 });
+document.querySelector('section#page').addEventListener('mouseover', e => {
+  TipsManager.route(e.target);
+});

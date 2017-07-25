@@ -52,3 +52,15 @@
 .achievement-description {
   margin-left: 80px;
 }
+
+.tip-container{
+  position: fixed;
+
+    background: rgba(17,17,17,.9);
+    border-radius: 4px;
+    color: #fff;
+    font-size: 12px;
+    padding: .5em 1em;
+    white-space: nowrap;
+    margin-bottom: 11px;
+}

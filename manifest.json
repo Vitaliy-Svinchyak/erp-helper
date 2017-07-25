@@ -22,6 +22,7 @@
         "content-scripts/helper.js",
         "content-scripts/filler.js",
         "content-scripts/achivementHelper.js",
+        "content-scripts/tipsManager.js",
         "content-scripts/content.js"
       ],
       "css": [
