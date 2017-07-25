@@ -5,7 +5,7 @@ function initalizePlugin() {
     }
 
     if (+localStorage.getItem('audio') === 0) {
-        document.querySelector('#toggle-music img').src = 'icons/speaker-off.svg';
+      document.querySelector('#music-toggler-input').click();
     }
 
     document.querySelector('#fill-it')
@@ -13,15 +13,13 @@ function initalizePlugin() {
             chrome.tabs.getSelected(null, tabs => {
                 chrome.tabs.sendMessage(tabs.id, {action: "fill"});
             });
-        })
+        });
 
-    document.querySelector('#toggle-music img').addEventListener('click', () => {
+    document.querySelector('#music-toggler-input').addEventListener('change', () => {
         if (+localStorage.getItem('audio') === 0) {
             localStorage.setItem('audio', 1);
-            document.querySelector('#toggle-music img').src = 'icons/speaker-on.svg';
         } else {
             localStorage.setItem('audio', 0);
-            document.querySelector('#toggle-music img').src = 'icons/speaker-off.svg';
             const port = chrome.extension.connect();
             port.postMessage(
                 {
