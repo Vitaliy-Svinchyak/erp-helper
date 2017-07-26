@@ -1,3 +1,5 @@
+"use strict";
+
 const erpHelperRouter = {
     route: (options) => {
         switch (options.action) {
@@ -91,6 +93,9 @@ window.document.body.addEventListener('keydown', e => {
         erpHelperRouter.route({action: 'fill'});
     }
 });
-document.querySelector('section#page').addEventListener('mouseover', e => {
-  TipsManager.route(e.target);
-});
+const section = document.querySelector('section#page');
+if (section) {
+    section.addEventListener('mouseover', e => {
+        TipsManager.route(e.target);
+    });
+}

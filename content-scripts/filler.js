@@ -1,3 +1,5 @@
+"use strict";
+
 class Filler {
 
     static fillCmsApplication() {
@@ -65,7 +67,6 @@ class Filler {
         Helper.setValue('[name="client[email]"]', Helper.generateRandomEmail());
         Helper.setValue('[name="client[phone]"]', Helper.generateRandomMobilePhone());
         Helper.setValue('[name="client[documentNumber]"]', Helper.generateRandomInteger(1000, 100000));
-        document.querySelector('[data-normalized-text="Passport"]').click();
 
         const division = Helper.generateRandomName();
         const town = Helper.generateRandomName();
@@ -77,10 +78,8 @@ class Filler {
 
         const districts = document.querySelector('[name="client[adrDistrict]"]').children;
         const selectedDistrictNumber = Helper.generateRandomInteger(0, districts.length - 1);
-        document.querySelector(
-            '[name="client[adrDistrict]"] + .bootstrap-select li[data-original-index="'
-            + selectedDistrictNumber + '"] a'
-        ).click();
+        Helper.clickElement('[name="client[adrDistrict]"] + .bootstrap-select li[data-original-index="'
+            + selectedDistrictNumber + '"] a');
 
         const valuesText = document.querySelector('[name="client[adrId][text]').value
             + `|${division}|${town}|${street}|${house}|${entrance}|${apartment}|${postalCode}|`;
@@ -201,7 +200,7 @@ class Filler {
                         break;
                     case'[isPhoneNumberCallable]':
                         if (input.value === '1') {
-                            input.click();
+                            Helper.clickElement(input);
                         }
                         break;
                     default:
@@ -215,8 +214,7 @@ class Filler {
 
         if (inputsToFill.length === 0 && addDocumentButton) {
             Filler.onTodoBodyChange(insertData);
-
-            addDocumentButton.click();
+            Helper.clickElement(addDocumentButton);
 
             return true;
         } else if (inputsToFill.length === 0) {
@@ -339,7 +337,7 @@ class Filler {
     }
 
     static fillBankAccountForm() {
-        document.querySelector('input[name="isPrimary"][value="1"]').click();
+        Helper.clickElement('input[name="isPrimary"][value="1"]');
         const select = document.querySelector('select[name="bankAccount"]');
         const options = select.children;
         let bankName;
@@ -410,7 +408,7 @@ class Filler {
 
         Filler.observerOfPopup.observe(target, {childList: true, subtree: true});
 
-        document.querySelector('#manual_assign_btn').click();
+        Helper.clickElement('#manual_assign_btn');
     }
 
     static fillClientRegistration() {

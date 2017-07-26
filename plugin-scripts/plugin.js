@@ -1,3 +1,5 @@
+"use strict";
+
 function initalizePlugin() {
 
     if (localStorage.getItem('audio') === null) {

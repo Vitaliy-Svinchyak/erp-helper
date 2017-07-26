@@ -111,17 +111,37 @@ class Helper {
             element = selector;
         }
 
-        element.value = value;
+        if (!element) {
+            return false;
+        }
 
-        return element;
+        element.value = value;
     }
 
     static setValueWithChangeAndFocus(selector, value) {
         const element = Helper.setValue(selector, value);
 
+        if (!element) {
+            return false;
+        }
+
         element.dispatchEvent(new Event('change', {bubbles: true, cancelable: false}));
         element.dispatchEvent(new Event('focus', {bubbles: true, cancelable: false}));
+    }
 
-        return element;
+    static clickElement(selector) {
+        let element;
+
+        if (typeof( selector ) === 'string') {
+            element = document.querySelector(selector);
+        } else {
+            element = selector;
+        }
+
+        if (!element) {
+            return false;
+        }
+
+        element.click();
     }
 }

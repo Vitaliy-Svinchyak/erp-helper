@@ -3,6 +3,7 @@
 - Заполнять форму создания Application
   - erp
   - web
+  
 - Заполнять форму Todo
   - Credit Db Manual Check
   - Id Document Check
@@ -11,10 +12,14 @@
   - Client Primary Info
   - Employer Info
   - Bank Account
+  
 - Заполнять форму
   - Создание payment
   - Assign payment
   - Client registration
   
- Сочетания клавиш: 
- - Заполнить форму - ctrl + Q
+- Сочетания клавиш: 
+  - Заполнить форму - ctrl + Q
+  
+- Подсказки на:
+  - Credit Db Manual Check

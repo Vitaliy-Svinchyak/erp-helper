@@ -1,3 +1,5 @@
+"use strict";
+
 const idToTip = {
     'add-household-bill': 'Добавляет ведомость'
 };

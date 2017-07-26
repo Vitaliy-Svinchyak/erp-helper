@@ -1,3 +1,5 @@
+"use strict";
+
 let achievementId = 0;
 
 class AchivementHelper {
