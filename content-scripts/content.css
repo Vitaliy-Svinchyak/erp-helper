@@ -70,6 +70,8 @@
   right: 0;
   padding: 10px;
   color: #b12f2f;
+  z-index: 999999999;
+  cursor: default;
 }
 
 .error-tip .error-circle {
@@ -83,5 +85,4 @@
   border: 1px solid black;
   font-size: 9px;
   text-align: center;
-  padding-top: 2px;
 }

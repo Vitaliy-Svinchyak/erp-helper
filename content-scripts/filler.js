@@ -18,30 +18,32 @@ class Filler {
         const apartment = Helper.generateRandomInteger(1, 999);
         const postalCode = Helper.generateRandomInteger(1111, 9999);
 
-        const districts = document.querySelector('[name="address[adrDistrict]"]').children;
-        const selectedDistrictNumber = Helper.generateRandomInteger(0, districts.length - 1);
-        const district = districts[selectedDistrictNumber].value;
+        if (document.querySelector('[name="address[adrDistrict]"]')) {
+            const districts = document.querySelector('[name="address[adrDistrict]"]').children;
+            const selectedDistrictNumber = Helper.generateRandomInteger(0, districts.length - 1);
+            const district = districts[selectedDistrictNumber].value;
 
-        const valuesText = `${district}|${division}|${town}|${street}|${house}|${entrance}|${apartment}|${postalCode}|`;
-        const idText = `${district}|-1|-1|-1|-1|-1|-1|-1`;
+            const valuesText = `${district}|${division}|${town}|${street}|${house}|${entrance}|${apartment}|${postalCode}|`;
+            const idText = `${district}|-1|-1|-1|-1|-1|-1|-1`;
 
-        Helper.setValue('[name="address[adrId][id]"]', idText);
-        Helper.setValue('[name="address[adrId][text]"]', valuesText);
+            Helper.setValue('[name="address[adrId][id]"]', idText);
+            Helper.setValue('[name="address[adrId][text]"]', valuesText);
 
-        Helper.setValue('[name="address[adrDistrict]"]', district);
-        Helper.setValueWithChangeAndFocus('[name="address[adrDivision]"]', division);
-        Helper.setValueWithChangeAndFocus('[name="address[adrCity]"]', town);
-        Helper.setValueWithChangeAndFocus('[name="address[adrStreet]"]', street);
-        Helper.setValueWithChangeAndFocus('[name="address[adrHouse]"]', house);
-        Helper.setValueWithChangeAndFocus('[name="address[adrEntrance]"]', entrance);
-        Helper.setValueWithChangeAndFocus('[name="address[adrApartment]"]', apartment);
-        Helper.setValueWithChangeAndFocus('[name="address[adrPostcode]"]', postalCode);
+            Helper.setValue('[name="address[adrDistrict]"]', district);
+            Helper.setValueWithChangeAndFocus('[name="address[adrDivision]"]', division);
+            Helper.setValueWithChangeAndFocus('[name="address[adrCity]"]', town);
+            Helper.setValueWithChangeAndFocus('[name="address[adrStreet]"]', street);
+            Helper.setValueWithChangeAndFocus('[name="address[adrHouse]"]', house);
+            Helper.setValueWithChangeAndFocus('[name="address[adrEntrance]"]', entrance);
+            Helper.setValueWithChangeAndFocus('[name="address[adrApartment]"]', apartment);
+            Helper.setValueWithChangeAndFocus('[name="address[adrPostcode]"]', postalCode);
 
-        const password = Helper.generateRandomName(8, true) + Helper.generateRandomInteger(0, 9);
-        Helper.setValueWithChangeAndFocus('[name="password"]', password);
-        Helper.setValueWithChangeAndFocus('[name="passwordVerification"]', password);
-        document.querySelector('[name="password"]').type = 'text';
-        document.querySelector('[name="passwordVerification"]').type = 'text';
+            const password = Helper.generateRandomName(8, true) + Helper.generateRandomInteger(0, 9);
+            Helper.setValueWithChangeAndFocus('[name="password"]', password);
+            Helper.setValueWithChangeAndFocus('[name="passwordVerification"]', password);
+            document.querySelector('[name="password"]').type = 'text';
+            document.querySelector('[name="passwordVerification"]').type = 'text';
+        }
 
         if (!document.querySelector('[name="acceptTerms').checked) {
             document.querySelector('[name="acceptTerms').click();

@@ -22,6 +22,7 @@ const erpHelperRouter = {
     fillApplication: () => {
         switch (document.location.pathname) {
             case '/loan/application/apply/registration':
+            case '/loan/application/apply-step-two/details/private':
                 Filler.fillCmsApplication();
                 break;
             case '/applications/add':
@@ -100,6 +101,8 @@ if (section) {
     });
 }
 
-window.addEventListener('error', (e) => {
-    TipsManager.renderErrorTip();
-});
+window.addEventListener('error', TipsManager.renderErrorTip);
+
+for (const image of document.images) {
+    image.addEventListener('error', TipsManager.renderErrorTip);
+}
