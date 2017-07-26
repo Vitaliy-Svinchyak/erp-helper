@@ -116,6 +116,8 @@ class Helper {
         }
 
         element.value = value;
+
+        return element;
     }
 
     static setValueWithChangeAndFocus(selector, value) {
