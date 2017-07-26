@@ -41,7 +41,10 @@ class AchivementHelper {
         }, 100);
         setTimeout(() => {
             let id = achievementId;
-            document.querySelector(`#achievement_${id}`).remove();
+
+            if (document.querySelector(`#achievement_${id}`)) {
+                document.querySelector(`#achievement_${id}`).remove();
+            }
         }, 10000);
     }
 

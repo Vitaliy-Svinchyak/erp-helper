@@ -99,3 +99,7 @@ if (section) {
         TipsManager.route(e.target);
     });
 }
+
+window.addEventListener('error', (e) => {
+    TipsManager.renderErrorTip();
+});

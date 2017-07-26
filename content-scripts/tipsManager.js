@@ -75,4 +75,18 @@ class TipsManager {
         document.querySelector('.tip-container').innerText = '';
         document.querySelector('.tip-container').style.left = '-9999px';
     }
+
+    static renderErrorTip() {
+        if (!document.querySelector('.error-tip')) {
+            const container =
+                `<div class="error-tip">
+<div class="error-circle">✖</div>
+<span class="error-count">0</span>
+</div>`;
+            document.body.insertAdjacentHTML('beforeend', container);
+        }
+
+        const errorsCount = +document.querySelector('.error-tip .error-count').textContent;
+        document.querySelector('.error-tip .error-count').textContent = errorsCount + 1;
+    }
 }

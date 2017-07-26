@@ -53,14 +53,35 @@
   margin-left: 80px;
 }
 
-.tip-container{
+.tip-container {
   position: fixed;
+  background: rgba(17, 17, 17, .9);
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  padding: .5em 1em;
+  white-space: nowrap;
+  margin-bottom: 11px;
+}
 
-    background: rgba(17,17,17,.9);
-    border-radius: 4px;
-    color: #fff;
-    font-size: 12px;
-    padding: .5em 1em;
-    white-space: nowrap;
-    margin-bottom: 11px;
+.error-tip {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  color: #b12f2f;
+}
+
+.error-tip .error-circle {
+  height: 16px;
+  width: 16px;
+  margin-right: 5px;
+  float: left;
+  border-radius: 100%;
+  background-color: #b12f2f;
+  color: white;
+  border: 1px solid black;
+  font-size: 9px;
+  text-align: center;
+  padding-top: 2px;
 }
