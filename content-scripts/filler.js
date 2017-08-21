@@ -302,7 +302,7 @@ class Filler {
                         break;
                     case'[income]':
                         if (input.classList.contains('money_amount_inp')) {
-                            input.value = Helper.generateRandomInteger(300, 3000);
+                            input.value = 10000000;
                         }
                         break;
                     default:
@@ -327,11 +327,44 @@ class Filler {
 
     static fillPrimaryInfoForm() {
         Helper.setValue('[name="client[homePhone]"]', Helper.generateRandomHomePhone());
+        if (document.getElementById('addressDivision').value === '') {
+
+            const division = Helper.generateRandomName();
+            const town = Helper.generateRandomName();
+            const street = Helper.generateRandomName();
+            const house = Helper.generateRandomInteger(1, 999);
+            const entrance = Helper.generateRandomInteger(1, 999);
+            const apartment = Helper.generateRandomInteger(1, 999);
+            const postalCode = Helper.generateRandomInteger(1, 999);
+
+            const valuesText = document.querySelector('[data-addr="fullAddress"]').value
+                + `|${division}|${town}|${street}|${house}|${entrance}|${apartment}|${postalCode}|`;
+            const idText = document.querySelector('[data-addr="adrId"]').value + '|-1|-1|-1|-1|-1|-1|-1';
+
+            Helper.setValue('#addressDivision', division);
+            Helper.setValue('#addressCity', town);
+            Helper.setValue('#addressStreet', street);
+            Helper.setValue('#addressHouse', house);
+            Helper.setValue('#addressEntrance', entrance);
+            Helper.setValue('#addressApartment', apartment);
+            Helper.setValue('#addressPostCode', postalCode);
+
+            document.querySelector('#addressDivision').removeAttribute('disabled');
+            document.querySelector('#addressCity').removeAttribute('disabled');
+            document.querySelector('#addressStreet').removeAttribute('disabled');
+            document.querySelector('#addressHouse').removeAttribute('disabled');
+            document.querySelector('#addressEntrance').removeAttribute('disabled');
+            document.querySelector('#addressApartment').removeAttribute('disabled');
+            document.querySelector('#addressPostCode').removeAttribute('disabled');
+
+            Helper.setValue('[data-addr="adrId"]', idText);
+            Helper.setValue('[data-addr="fullAddress"]', valuesText);
+        }
     }
 
     static fillEmployerForm() {
         Helper.setValueWithChangeAndFocus('[name="client[clientEmploymentStatus]"]', 1);
-        Helper.setValue('[name="client[clientEmployers][0][dateOfEmployment]"]', Helper.generateRandomDate());
+        Helper.setValue('[name="client[clientEmployers][0][dateOfEmployment]"]', Helper.generateRandomDate().substr(3));
         Helper.setValue('[name="client[clientEmployers][0][title]"]', Helper.generateRandomName());
         Helper.setValue('[name="client[clientEmployers][0][contactPerson]"]', Helper.generateRandomName());
         Helper.setValue('[name="client[clientEmployers][0][email]"]', Helper.generateRandomEmail());
@@ -419,5 +452,25 @@ class Filler {
         const currentId = document.querySelector('[name="address[adrId][id]"]').value.split('|');
         currentId[0] = 10000;
         Helper.setValue('[name="address[adrId][id]"]', currentId.join('|'));
+    }
+
+    static fillConfirmCheckForm() {
+        const xpath = '//b[text()="View Document"]';
+        const matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+
+        if (!matchingElement) {
+            Helper.clickElement('#btnCreateDocument');
+            setTimeout(() => {
+                Helper.clickElement('.bootbox-confirm .btn.btn-primary');
+            }, 150);
+        } else {
+            const xpathRadio = '//label[text()="Yes"]';
+            const isSatisfactorily = document.evaluate(xpathRadio, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+
+            if (isSatisfactorily) {
+                isSatisfactorily.firstChild.click();
+                Helper.clickElement('.js-save-client-document');
+            }
+        }
     }
 }

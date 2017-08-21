@@ -12,6 +12,7 @@
   - Client Primary Info
   - Employer Info
   - Bank Account
+  - Confirm Check
   
 - Заполнять форму
   - Создание payment
