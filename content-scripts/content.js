@@ -89,15 +89,26 @@ const erpHelperRouter = {
 
     }
 };
+const formManager = new FormManager();
 
 chrome.runtime.onMessage.addListener(erpHelperRouter.route);
 
 window.document.body.addEventListener('keydown', e => {
     if (e.ctrlKey && e.code === 'KeyQ') {
         erpHelperRouter.route({action: 'fill'});
+        setTimeout(() => formManager.detectFormChanges(), 200);
+    }
+
+    if (e.ctrlKey && e.code === 'KeyB') {
+        formManager.showFormChanges()
+    }
+
+    if (e.code === 'Escape') {
+        document.body.removeChild(document.querySelector('background-screen'));
     }
 });
 const section = document.querySelector('section#page');
+
 if (section) {
     section.addEventListener('mouseover', e => {
         TipsManager.route(e.target);
@@ -105,6 +116,8 @@ if (section) {
 }
 
 window.addEventListener('error', TipsManager.renderErrorTip);
+
+window.document.body.addEventListener('change', e => formManager.logInputChange(e.target));
 
 for (const image of document.images) {
     image.addEventListener('error', TipsManager.renderErrorTip);

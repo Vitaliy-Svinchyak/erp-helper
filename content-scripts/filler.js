@@ -78,11 +78,6 @@ class Filler {
         const apartment = Helper.generateRandomInteger(1, 999);
         const postalCode = Helper.generateRandomInteger(1, 999);
 
-        const districts = document.querySelector('[name="client[adrDistrict]"]').children;
-        const selectedDistrictNumber = Helper.generateRandomInteger(0, districts.length - 1);
-        Helper.clickElement('[name="client[adrDistrict]"] + .bootstrap-select li[data-original-index="'
-            + selectedDistrictNumber + '"] a');
-
         const valuesText = document.querySelector('[name="client[adrId][text]').value
             + `|${division}|${town}|${street}|${house}|${entrance}|${apartment}|${postalCode}|`;
         const idText = document.querySelector('[name="client[adrId][id]"]').value + '|-1|-1|-1|-1|-1|-1|-1';
@@ -166,18 +161,18 @@ class Filler {
             return false;
         }
 
-        Helper.setValue(`${selectorStart}debtAmount]"]`, 0);
-        Helper.setValue(`${selectorStart}debtCount]"]`, 0);
-        Helper.setValue(`${selectorStart}loanAmount]"]`, 0);
-        Helper.setValue(`${selectorStart}loanCount]"]`, 0);
-        Helper.setValue(`${selectorStart}loanMonthlyAmount]"]`, 0);
-        Helper.setValue(`${selectorStart}worstStatus]"]`, 0);
-        Helper.setValue(`${selectorStart}debtAmountRelated]"]`, 0);
-        Helper.setValue(`${selectorStart}debtCountRelated]"]`, 0);
-        Helper.setValue(`${selectorStart}loanAmountRelated]"]`, 0);
-        Helper.setValue(`${selectorStart}loanCountRelated]"]`, 0);
-        Helper.setValue(`${selectorStart}loanMonthlyAmountRelated]"]`, 0);
-        Helper.setValue(`${selectorStart}worstStatusRelated]"]`, 0);
+        Helper.setValue(`${selectorStart}debtAmount]"]`, 1);
+        Helper.setValue(`${selectorStart}debtCount]"]`, 1);
+        Helper.setValue(`${selectorStart}loanAmount]"]`, 1);
+        Helper.setValue(`${selectorStart}loanCount]"]`, 1);
+        Helper.setValue(`${selectorStart}loanMonthlyAmount]"]`, 1);
+        Helper.setValue(`${selectorStart}worstStatus]"]`, 1);
+        Helper.setValue(`${selectorStart}debtAmountRelated]"]`, 1);
+        Helper.setValue(`${selectorStart}debtCountRelated]"]`, 1);
+        Helper.setValue(`${selectorStart}loanAmountRelated]"]`, 1);
+        Helper.setValue(`${selectorStart}loanCountRelated]"]`, 1);
+        Helper.setValue(`${selectorStart}loanMonthlyAmountRelated]"]`, 1);
+        Helper.setValue(`${selectorStart}worstStatusRelated]"]`, 1);
         Helper.setValue(`${selectorStart}lastInquiryDate]"]`, Helper.generateRandomDate());
     }
 
