@@ -9,16 +9,15 @@ class FormManager {
     logInputChange(element) {
         const label = this.detectLabel(element);
 
-        this.changeLog[getPathTo(element)] = {
+        this.changeLog[this.getPathTo(element)] = {
             label: label,
             value: element.value
         };
     }
 
     detectLabel(element) {
-        this.changeLog = {};
-
         let label;
+
         if (element.id) {
             label = document.querySelector(`label[for="${element.id}"]`);
         }
@@ -27,45 +26,21 @@ class FormManager {
             return label.textContent;
         }
 
-        //if one label for two inputs (money fieldset)
         let parentContainer = element.parentNode;
         for (let i = 0; i <= 5; i++) {
-            if (parentContainer.children[0].tagName === 'LABEL') {
-                let content = parentContainer.children[0].textContent;
-
-                if (content.trim()) {
-                    return content.trim();
-                }
-            }
-        }
-
-        // table style (Client Credit Check)
-        parentContainer = element.parentNode;
-        for (let i = 0; i <= 5; i++) {
-
-            if (parentContainer.children[0].tagName === 'TD'
-                && parentContainer.children.length
-                && parentContainer.children[0].length) {
-                let content = parentContainer.children[0].children[1].textContent;
-
-                if (content.trim()) {
-                    return content.trim();
-                }
+            const oneLabel = this.getOneLabelForTwoFields(parentContainer);
+            if (oneLabel) {
+                return oneLabel;
             }
 
-            parentContainer = parentContainer.parentNode;
-        }
+            const tableStyleLabel = this.getTableStyleLabel(parentContainer);
+            if (tableStyleLabel) {
+                return tableStyleLabel;
+            }
 
-        // id document check style
-        parentContainer = element.parentNode;
-        for (let i = 0; i <= 5; i++) {
-
-            if (parentContainer.children[0].tagName === 'TD') {
-                let content = parentContainer.children[0].textContent;
-
-                if (content.trim()) {
-                    return content.trim();
-                }
+            const idDocumentStyleLabel = this.getIdDocumentStyleLabel(parentContainer);
+            if (idDocumentStyleLabel) {
+                return idDocumentStyleLabel;
             }
 
             parentContainer = parentContainer.parentNode;
@@ -74,11 +49,51 @@ class FormManager {
         return element.name;
     }
 
+    getOneLabelForTwoFields(parentContainer) {
+        if (parentContainer.children[0].tagName === 'LABEL') {
+            const content = parentContainer.children[0].textContent.trim();
+
+            if (content) {
+                return content;
+            }
+        }
+
+        return null;
+    }
+
+    getTableStyleLabel(parentContainer) {
+        if (parentContainer.children[0].tagName === 'TD'
+            && parentContainer.children.length
+            && parentContainer.children[0].length) {
+
+            const content = parentContainer.children[0].children[1].textContent.trim();
+
+            if (content) {
+                return content;
+            }
+        }
+
+        return null;
+    }
+
+    getIdDocumentStyleLabel(parentContainer) {
+        if (parentContainer.children[0].tagName === 'TD') {
+            const content = parentContainer.children[0].textContent.trim();
+
+            if (content) {
+                return content;
+            }
+        }
+
+        return null;
+    }
+
     detectFormChanges() {
+        this.changeLog = {};
         const elements = document.querySelectorAll(`input:not(disabled):not([type=hidden]):not([type=file]),
         select:not(disabled),textarea:not(disabled)`);
 
-        for (let element of elements) {
+        for (const element of elements) {
             if (element.attributes.value && element.attributes.value.value !== element.value) {
                 this.logInputChange(element);
             }
@@ -87,33 +102,43 @@ class FormManager {
 
     showFormChanges() {
         let changes = '';
-        for (let changeKey in this.changeLog) {
+        let maxStringLength = 0;
+
+        for (const changeKey in this.changeLog) {
             const change = this.changeLog[changeKey];
-            changes += `${change.label} : ${change.value} \n`;
+            const changeStringified = `${change.label} : ${change.value} \n`;
+            if (maxStringLength < changeStringified.length) {
+                maxStringLength = changeStringified.length;
+            }
+            changes += changeStringified;
         }
+
+        const rows = Object.getOwnPropertyNames(this.changeLog).length + 1;
+        const cols = maxStringLength;
+
         const html = `<background-screen>
                         <form-changes-popup>
-                            <textarea autofocus class="form-changes" rows="10" cols="40">${changes}</textarea>
+                            <textarea autofocus class="form-changes" rows="${rows}" cols="${cols}">${changes}</textarea>
                         </form-changes-popup>
                     </background-screen>`;
         document.body.insertAdjacentHTML('beforeend', html);
     }
-}
 
-function getPathTo(element) {
-    if (element.id !== '')
-        return 'id("' + element.id + '")';
-    if (element === document.body)
-        return element.tagName;
+    getPathTo(element) {
+        if (element.id !== '')
+            return 'id("' + element.id + '")';
+        if (element === document.body)
+            return element.tagName;
 
-    let ix = 0;
-    let siblings = element.parentNode.childNodes;
+        let ix = 0;
+        const siblings = element.parentNode.childNodes;
 
-    for (let i = 0; i < siblings.length; i++) {
-        const sibling = siblings[i];
-        if (sibling === element)
-            return getPathTo(element.parentNode) + '/' + element.tagName + '[' + (ix + 1) + ']';
-        if (sibling.nodeType === 1 && sibling.tagName === element.tagName)
-            ix++;
+        for (let i = 0; i < siblings.length; i++) {
+            const sibling = siblings[i];
+            if (sibling === element)
+                return this.getPathTo(element.parentNode) + '/' + element.tagName + '[' + (ix + 1) + ']';
+            if (sibling.nodeType === 1 && sibling.tagName === element.tagName)
+                ix++;
+        }
     }
 }
