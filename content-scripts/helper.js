@@ -1,6 +1,10 @@
 class Helper {
     static generateRandomInteger(minValue, maxValue, numberLength) {
         let number = Math.floor(Math.random() * (maxValue - minValue)) + minValue;
+        return Helper.generateZerosBeforeNumber(number, numberLength);
+    }
+
+    static generateZerosBeforeNumber(number, numberLength) {
         const nLength = number.toString().length;
 
         if (nLength < numberLength) {

@@ -1,17 +1,24 @@
 "use strict";
-
+/** @var Helper Helper **/
 class FormManager {
 
     constructor() {
+
         this.changeLog = {};
     }
 
     logInputChange(element) {
         const label = this.detectLabel(element);
+        const date = new Date();
+        const hours = Helper.generateZerosBeforeNumber(date.getHours(), 2);
+        const minutes = Helper.generateZerosBeforeNumber(date.getMinutes(), 2);
+        const seconds = Helper.generateZerosBeforeNumber(date.getSeconds(), 2);
+        const time = `${hours}:${minutes}:${seconds}`;
 
         this.changeLog[this.getPathTo(element)] = {
             label: label,
-            value: element.value
+            value: element.value,
+            time: time
         };
     }
 
@@ -102,43 +109,108 @@ class FormManager {
 
     showFormChanges() {
         let changes = '';
-        let maxStringLength = 0;
 
         for (const changeKey in this.changeLog) {
-            const change = this.changeLog[changeKey];
-            const changeStringified = `${change.label} : ${change.value} \n`;
-            if (maxStringLength < changeStringified.length) {
-                maxStringLength = changeStringified.length;
+            if (!this.changeLog.hasOwnProperty(changeKey)) {
+                continue;
             }
-            changes += changeStringified;
+
+            const change = this.changeLog[changeKey];
+            changes += `<tr hash="${changeKey}">
+                                            <td>${change.time}</td>
+                                            <td>input</td>
+                                            <td>${change.label}</td>
+                                            <td>${change.value}</td>
+                                        </tr>`;
         }
 
-        const rows = Object.getOwnPropertyNames(this.changeLog).length + 1;
-        const cols = maxStringLength;
+        this.insertFormChanges(changes);
+    }
 
+    generateTextWithChanges() {
+        let changes = '';
+
+        for (const changeKey in this.changeLog) {
+            if (!this.changeLog.hasOwnProperty(changeKey)) {
+                continue;
+            }
+
+            const change = this.changeLog[changeKey];
+            if (change.disabled) {
+                continue;
+            }
+
+            changes += `${change.label} : ${change.value} \n`;
+        }
+
+
+        const formChangesPopup = document.querySelector('form-changes-popup');
+        const textarea = document.querySelector('form-changes-popup textarea');
+
+        if (textarea) {
+            textarea.textContent = changes;
+        } else {
+            const rows = Object.getOwnPropertyNames(this.changeLog).length + 1;
+
+            const html = `<textarea autofocus class="form-changes" rows="${rows}">${changes}</textarea>`;
+            formChangesPopup.insertAdjacentHTML('beforeend', html);
+        }
+
+    }
+
+    insertFormChanges(data) {
         const html = `<background-screen>
                         <form-changes-popup>
-                            <textarea autofocus class="form-changes" rows="${rows}" cols="${cols}">${changes}</textarea>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Время</th>
+                                    <th>Объект</th>
+                                    <th>Заголовок</th>
+                                    <th>Значение</th>
+                                </tr>
+                                </thead>
+                                ${data}
+                                </tbody>
+                            </table>
+                            <button class="exportButton">Сгенерировать</button>
                         </form-changes-popup>
                     </background-screen>`;
         document.body.insertAdjacentHTML('beforeend', html);
+
+        document.querySelector('form-changes-popup table').addEventListener('click', e => {
+            if (e.target.tagName === 'TD') {
+                const tr = e.target.parentNode;
+                tr.classList.toggle('disabled');
+                const hash = tr.attributes.hash.value;
+                this.changeLog[hash].disabled = !this.changeLog[hash].disabled;
+            }
+        });
+
+        document.querySelector('form-changes-popup .exportButton').addEventListener('click', e => {
+            this.generateTextWithChanges();
+        });
     }
 
     getPathTo(element) {
-        if (element.id !== '')
-            return 'id("' + element.id + '")';
-        if (element === document.body)
+        if (element.id !== '') {
+            return "id('" + element.id + "')";
+        }
+        if (element === document.body) {
             return element.tagName;
+        }
 
         let ix = 0;
         const siblings = element.parentNode.childNodes;
 
         for (let i = 0; i < siblings.length; i++) {
             const sibling = siblings[i];
-            if (sibling === element)
+            if (sibling === element) {
                 return this.getPathTo(element.parentNode) + '/' + element.tagName + '[' + (ix + 1) + ']';
-            if (sibling.nodeType === 1 && sibling.tagName === element.tagName)
+            }
+            if (sibling.nodeType === 1 && sibling.tagName === element.tagName) {
                 ix++;
+            }
         }
     }
 }
