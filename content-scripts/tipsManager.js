@@ -132,11 +132,6 @@ class TipsManager {
                                         </li>
                                     </ol>
                                 </li>
-                                <li>Подсказки
-                                    <ol>
-                                        <li>Credit Db Manual Check</li>
-                                    </ol>
-                                </li>
                             </ol>`;
         Helper.renderModal(html);
     }

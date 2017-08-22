@@ -106,16 +106,17 @@ window.document.body.addEventListener('keydown', e => {
         formManager.showFormChanges()
     }
 
-    if (e.code === 'Escape') {
+    if (e.code === 'Escape' && document.querySelector('background-screen')) {
         document.body.removeChild(document.querySelector('background-screen'));
     }
 });
 const section = document.querySelector('section#page');
 
 if (section) {
-    section.addEventListener('mouseover', e => {
-        TipsManager.route(e.target);
-    });
+    // very doubtful functionality, maybe I will delete it later
+    // section.addEventListener('mouseover', e => {
+    // TipsManager.route(e.target);
+    // });
 }
 
 window.addEventListener('error', TipsManager.renderErrorTip);

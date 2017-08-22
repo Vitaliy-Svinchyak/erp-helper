@@ -412,7 +412,6 @@ class Filler {
         const methods = document.querySelector('#paymentMethod').children;
         const selectedMethodNumber = Helper.generateRandomInteger(1, methods.length);
         const method = methods[selectedMethodNumber].value;
-        console.log(selectedMethodNumber);
         Helper.setValue('#paymentMethod', method);
         Helper.setValue('#amount_inp', 10000);
     }
@@ -428,7 +427,7 @@ class Filler {
 
         Filler.observerOfPopup = new MutationObserver((mutations) => {
             mutations.filter(m => m.addedNodes.length)
-                .forEach((a) => {
+                .forEach(() => {
                     document.querySelector('#erpPopup iframe').addEventListener('load', () => {
                         document.querySelector('#erpPopup iframe').contentDocument.querySelector('#assignment_btn').click();
                     });

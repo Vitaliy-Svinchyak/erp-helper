@@ -119,24 +119,32 @@ erp-helper-modal {
 erp-helper-modal table {
     border-collapse: collapse;
     margin: 8px 0;
+    font-family: 'Proxima Nova Bold', "Segoe UI", Roboto, "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    max-width: 50vw;
 }
 
 erp-helper-modal thead tr {
     border-bottom: 1px solid black;
 }
 
+erp-helper-modal tbody tr {
+    border-bottom: 1px solid #c8c8c8;
+}
+
 erp-helper-modal td {
-    padding: 4px;
+    padding: 8px;
     cursor: pointer;
 }
 
 erp-helper-modal th {
     padding: 4px;
     cursor: default;
+    text-align: center;
+    font-weight: 500;
 }
 
 erp-helper-modal tr.disabled {
-    background-color: #787878;
+    background-color: rgb(171, 171, 171);
     color: lightgrey;
 }
 

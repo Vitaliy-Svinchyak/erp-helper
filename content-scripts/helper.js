@@ -163,6 +163,11 @@ class Helper {
                             </erp-helper-modal>
                         </background-screen>`;
             document.body.insertAdjacentHTML('beforeend', html);
+            document.querySelector('background-screen').addEventListener('click', e => {
+                if (e.target.tagName === 'BACKGROUND-SCREEN') {
+                    document.body.removeChild(document.querySelector('background-screen'));
+                }
+            });
         }
     }
 }

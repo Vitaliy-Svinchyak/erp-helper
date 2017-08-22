@@ -8,6 +8,11 @@ class FormManager {
     }
 
     logInputChange(element, disabled) {
+        // do not log changes of our textarea for copy
+        if (element.classList.contains('form-changes')) {
+            return;
+        }
+
         disabled = disabled || false;
         const label = this.detectLabel(element);
         const date = new Date();
@@ -33,6 +38,7 @@ class FormManager {
                     case 'checkbox':
                         return element.checked ? 'Yes' : 'No';
                     case 'radio':
+                        // I saw radio buttons only inside label
                         if (element.parentNode.tagName === 'LABEL') {
                             return element.parentNode.textContent.trim();
                         }
@@ -40,15 +46,20 @@ class FormManager {
                         return element.value;
                 }
             case 'SELECT':
+                // select can be multiple
+                let selectedOptions = [];
                 for (const option of element.options) {
-                    if (option.value === element.value) {
-                        return option.textContent.trim();
+                    if (option.selected) {
+                        selectedOptions.push(option.textContent.trim());
                     }
                 }
 
-                if (element.options[0]) {
-                    return element.options[0].textContent.trim();
+                if (selectedOptions.length === 0 && element.options[0]) {
+                    selectedOptions.push(element.options[0].textContent.trim());
                 }
+
+                return selectedOptions.join(' , ');
+
             default:
                 return '<strong>WTF?! Can\'t understand!</strong>';
 
@@ -59,14 +70,17 @@ class FormManager {
         let label;
         let parentContainer = element.parentNode;
 
+        // by label binded by id
         if (element.id) {
             label = document.querySelector(`label[for="${element.id}"]`);
+
+            if (label) {
+                return label.textContent.trim();
+            }
         }
 
-        if (label) {
-            return label.textContent;
-        }
-
+        // Is satisifactorily has such nesting
+        // todo can broke sth
         if (element.type === 'radio') {
             parentContainer = element.parentNode.parentNode.parentNode.parentNode;
         }
@@ -134,19 +148,33 @@ class FormManager {
 
     getInputElements() {
         let addionalQuery = '';
+        // if it is page with todos - select only inputs inside it
         if (document.querySelector('.todo_col2')) {
             addionalQuery = '.todo_col2';
         }
 
+        // no disabled, hidden, and file inputs
         let elements = Array.prototype.slice.call(
             document.querySelectorAll(`${addionalQuery} input:not(disabled):not([type=hidden]):not([type=file]),
                 ${addionalQuery} select:not(disabled),${addionalQuery} textarea:not(disabled)`)
         );
 
         elements = elements.filter(element => {
+            // only 1 radio for name - which is selected
             if (element.type === 'radio') {
                 return element.checked;
             }
+
+            // no empty values
+            if (~['text', 'number', 'email'].indexOf(element.type)) {
+                return element.value !== '';
+            }
+
+            // no empty selects
+            if (element.tagName === 'SELECT') {
+                return element.options.length;
+            }
+
             return true;
         });
 
@@ -172,6 +200,13 @@ class FormManager {
 
             if (!this.changeLog.hasOwnProperty(hash)) {
                 this.logInputChange(element, true);
+            } else {
+                // some inputs (for example - bootstrap selectpickers) doesn't fire "change" event,
+                // so it will not be detected by global "change" listener
+                const propertyIsDisabled = this.changeLog[hash].disabled;
+                if (propertyIsDisabled) {
+                    this.logInputChange(element, true);
+                }
             }
         }
     }
@@ -189,7 +224,7 @@ class FormManager {
             const disabledClass = change.disabled ? 'class="disabled"' : '';
             changes += `<tr ${disabledClass} hash="${changeKey}">
                                             <td>${change.time}</td>
-                                            <td>input</td>
+                                            <!--<td>input</td>-->
                                             <td>${change.label}</td>
                                             <td>${change.value}</td>
                                         </tr>`;
@@ -211,13 +246,14 @@ class FormManager {
             if (change.disabled) {
                 continue;
             }
+
             rows++;
             changes += `${change.label} : ${change.value} \n`;
         }
 
 
         const formChangesPopup = document.querySelector('erp-helper-modal');
-        const textarea = document.querySelector('erp-helper-modal textarea');
+        let textarea = document.querySelector('erp-helper-modal textarea');
 
         if (textarea) {
             textarea.textContent = changes;
@@ -226,6 +262,24 @@ class FormManager {
         } else {
             const html = `<textarea autofocus class="form-changes" rows="${rows}">${changes}</textarea>`;
             formChangesPopup.insertAdjacentHTML('beforeend', html);
+            textarea = document.querySelector('erp-helper-modal textarea');
+        }
+
+        textarea.select();
+
+        try {
+            setTimeout(() => {
+                const result = document.execCommand('copy');
+
+                if (result) {
+                    document.querySelector('erp-helper-modal .exportButton').textContent = 'Скопировано в буфер обмена!';
+                    setTimeout(() => {
+                        document.querySelector('erp-helper-modal .exportButton').textContent = 'Сгенерировать';
+                    }, 2000);
+                }
+            }, 100);
+        } catch (err) {
+            console.log('Oops, unable to copy');
         }
 
     }
@@ -235,7 +289,7 @@ class FormManager {
                         <thead>
                         <tr>
                             <th>Время</th>
-                            <th>Объект</th>
+                            <!--<th>Объект</th>-->
                             <th>Заголовок</th>
                             <th>Значение</th>
                         </tr>
@@ -255,7 +309,7 @@ class FormManager {
             }
         });
 
-        document.querySelector('erp-helper-modal .exportButton').addEventListener('click', e => {
+        document.querySelector('erp-helper-modal .exportButton').addEventListener('click', () => {
             this.generateTextWithChanges();
         });
     }
