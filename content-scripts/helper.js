@@ -150,4 +150,19 @@ class Helper {
 
         element.click();
     }
+
+    static renderModal(content) {
+        const modal = document.querySelector('erp-helper-modal');
+
+        if (modal) {
+            modal.innerHTML = content;
+        } else {
+            const html = `<background-screen>
+                            <erp-helper-modal>
+                                ${content}
+                            </erp-helper-modal>
+                        </background-screen>`;
+            document.body.insertAdjacentHTML('beforeend', html);
+        }
+    }
 }

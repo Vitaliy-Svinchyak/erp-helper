@@ -8,6 +8,9 @@ const erpHelperRouter = {
                 erpHelperRouter.fillTodo();
                 erpHelperRouter.fillTrifle();
                 break;
+            case 'help':
+                TipsManager.showHelp();
+                break;
             case 'achievement':
                 AchivementHelper.renderAchievement(options.data);
                 break;

@@ -144,8 +144,8 @@ class FormManager {
         }
 
 
-        const formChangesPopup = document.querySelector('form-changes-popup');
-        const textarea = document.querySelector('form-changes-popup textarea');
+        const formChangesPopup = document.querySelector('erp-helper-modal');
+        const textarea = document.querySelector('erp-helper-modal textarea');
 
         if (textarea) {
             textarea.textContent = changes;
@@ -159,8 +159,7 @@ class FormManager {
     }
 
     insertFormChanges(data) {
-        const html = `<background-screen>
-                        <form-changes-popup>
+        const html = `
                             <table>
                                 <thead>
                                 <tr>
@@ -173,12 +172,10 @@ class FormManager {
                                 ${data}
                                 </tbody>
                             </table>
-                            <button class="exportButton">Сгенерировать</button>
-                        </form-changes-popup>
-                    </background-screen>`;
-        document.body.insertAdjacentHTML('beforeend', html);
+                            <button class="exportButton">Сгенерировать</button>`;
+        Helper.renderModal(html);
 
-        document.querySelector('form-changes-popup table').addEventListener('click', e => {
+        document.querySelector('erp-helper-modal table').addEventListener('click', e => {
             if (e.target.tagName === 'TD') {
                 const tr = e.target.parentNode;
                 tr.classList.toggle('disabled');
@@ -187,7 +184,7 @@ class FormManager {
             }
         });
 
-        document.querySelector('form-changes-popup .exportButton').addEventListener('click', e => {
+        document.querySelector('erp-helper-modal .exportButton').addEventListener('click', e => {
             this.generateTextWithChanges();
         });
     }

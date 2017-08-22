@@ -108,41 +108,41 @@ textarea.form-changes {
     margin-top: 10px;
 }
 
-form-changes-popup {
+erp-helper-modal {
     background-color: white;
-    padding: 8px;
+    padding: 16px;
 }
 
-form-changes-popup table {
+erp-helper-modal table {
     border-collapse: collapse;
     margin: 8px 0;
 }
 
-form-changes-popup thead tr {
+erp-helper-modal thead tr {
     border-bottom: 1px solid black;
 }
 
-form-changes-popup td {
+erp-helper-modal td {
     padding: 4px;
     cursor: pointer;
 }
 
-form-changes-popup th {
+erp-helper-modal th {
     padding: 4px;
     cursor: default;
 }
 
-form-changes-popup tr.disabled {
+erp-helper-modal tr.disabled {
     background-color: #787878;
     color: lightgrey;
 }
 
-form-changes-popup tbody tr:hover {
+erp-helper-modal tbody tr:hover {
     background-color: lightgrey;
     color: black;
 }
 
-form-changes-popup .exportButton {
+erp-helper-modal .exportButton {
     width: 100%;
     border: 0;
     background-color: #242527;
@@ -150,4 +150,7 @@ form-changes-popup .exportButton {
     cursor: pointer;
     padding: 8px;
     font-size: 100%;
+}
+erp-helper-modal li > ol {
+    padding-top: 6px;
 }

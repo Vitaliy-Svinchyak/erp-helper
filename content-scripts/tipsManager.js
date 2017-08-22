@@ -89,4 +89,55 @@ class TipsManager {
         const errorsCount = +document.querySelector('.error-tip .error-count').textContent;
         document.querySelector('.error-tip .error-count').textContent = errorsCount + 1;
     }
+
+    static showHelp() {
+        const html = `
+                            <h1>Одна кнопка,чтобы править всеми</h1>
+                            <h2>Возможности</h2>
+                            <ol>
+                                <li>Заполнять форму создания Application
+                                    <ol>
+                                        <li>erp</li>
+                                        <li>web</li>
+                                    </ol>
+                                </li>
+                                <li>Заполнять форму Todo
+                                    <ol>
+                                        <li>Credit Db Manual Check</li>
+                                        <li>Id Document Check</li>
+                                        <li>Household Bill Check</li>
+                                        <li>Payslip Check</li>
+                                        <li>Client Primary Info</li>
+                                        <li>Employer Info</li>
+                                        <li>Bank Account</li>
+                                        <li>Confirm Check</li>
+                                    </ol>
+                                </li>
+                                <li>Заполнять форму
+                                    <ol>
+                                        <li>Создание payment</li>
+                                        <li>Assign payment</li>
+                                        <li>Client registration</li>
+                                    </ol>
+                                </li>
+                                <li>Сочетания клавиш
+                                    <ol>
+                                        <li><strong>ctrl + Q</strong> - Заполнить форму</li>
+                                        <li><strong>ctrl + B</strong> - Сгенерировать отчет об изменениях на форме в формате создания бага
+                                            <ol>
+                                                <li>В форме можно нажатием на строку исключить её из генерации</li>
+                                                <li>По нажатию кнопки "Сгенерировать" под ней появится textarea с автофокусом, <br>
+                                                из которой можно скопировать готовый текст</li>
+                                            </ol>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>Подсказки
+                                    <ol>
+                                        <li>Credit Db Manual Check</li>
+                                    </ol>
+                                </li>
+                            </ol>`;
+        Helper.renderModal(html);
+    }
 }

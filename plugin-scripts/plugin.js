@@ -10,10 +10,10 @@ function initalizePlugin() {
       document.querySelector('#music-toggler-input').click();
     }
 
-    document.querySelector('#fill-it')
+    document.querySelector('#help-me')
         .addEventListener('click', () => {
             chrome.tabs.getSelected(null, tabs => {
-                chrome.tabs.sendMessage(tabs.id, {action: "fill"});
+                chrome.tabs.sendMessage(tabs.id, {action: "help"});
             });
         });
 
