@@ -224,7 +224,7 @@ class FormManager {
             const disabledClass = change.disabled ? 'class="disabled"' : '';
             changes += `<tr ${disabledClass} hash="${changeKey}">
                                             <td>${change.time}</td>
-                                            <!--<td>input</td>-->
+                                            <td>input</td>
                                             <td>${change.label}</td>
                                             <td>${change.value}</td>
                                         </tr>`;
@@ -289,7 +289,7 @@ class FormManager {
                         <thead>
                         <tr>
                             <th>Время</th>
-                            <!--<th>Объект</th>-->
+                            <th>Объект</th>
                             <th>Заголовок</th>
                             <th>Значение</th>
                         </tr>
