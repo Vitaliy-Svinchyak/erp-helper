@@ -111,6 +111,9 @@ textarea.form-changes {
 erp-helper-modal {
     background-color: white;
     padding: 16px;
+    max-height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 erp-helper-modal table {
@@ -151,6 +154,7 @@ erp-helper-modal .exportButton {
     padding: 8px;
     font-size: 100%;
 }
+
 erp-helper-modal li > ol {
     padding-top: 6px;
 }

@@ -2,11 +2,11 @@
   "manifest_version": 2,
   "name": "Mango automation",
   "description": "For help",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html",
-    "default_title": "easy breezy"
+    "default_title": "ми в дупі"
   },
   "icons": {
     "16": "icon.png",
