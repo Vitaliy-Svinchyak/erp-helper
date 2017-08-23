@@ -9,6 +9,7 @@ class Filler {
         Helper.setValueWithChangeAndFocus('[name="surname"]', Helper.generateRandomName());
         Helper.setValueWithChangeAndFocus('[name="email"]', Helper.generateRandomEmail());
         Helper.setValueWithChangeAndFocus('[name="phone"]', Helper.generateRandomMobilePhone());
+        Helper.setValueWithChangeAndFocus('[name="monthlyIncome"]', Helper.generateRandomInteger(250000, 500000));
 
         const division = Helper.generateRandomName();
         const town = Helper.generateRandomName();
@@ -37,8 +38,10 @@ class Filler {
             Helper.setValueWithChangeAndFocus('[name="address[adrEntrance]"]', entrance);
             Helper.setValueWithChangeAndFocus('[name="address[adrApartment]"]', apartment);
             Helper.setValueWithChangeAndFocus('[name="address[adrPostcode]"]', postalCode);
+        }
 
-            const password = Helper.generateRandomName(8, true) + Helper.generateRandomInteger(0, 9);
+        if (document.querySelector('[name="password"]')) {
+            const password = '123123eeE';
             Helper.setValueWithChangeAndFocus('[name="password"]', password);
             Helper.setValueWithChangeAndFocus('[name="passwordVerification"]', password);
             document.querySelector('[name="password"]').type = 'text';
@@ -442,10 +445,10 @@ class Filler {
 
     static fillClientRegistration() {
         Filler.fillCmsApplication();
-        Helper.setValue('[data-addr="fullAddress"]', document.querySelector('[name="address[adrId][text]"]').value);
-        const currentId = document.querySelector('[name="address[adrId][id]"]').value.split('|');
-        currentId[0] = 10000;
-        Helper.setValue('[name="address[adrId][id]"]', currentId.join('|'));
+        // Helper.setValue('[data-addr="fullAddress"]', document.querySelector('[name="address[adrId][text]"]').value);
+        // const currentId = document.querySelector('[name="address[adrId][id]"]').value.split('|');
+        // currentId[0] = 10000;
+        // Helper.setValue('[name="address[adrId][id]"]', currentId.join('|'));
     }
 
     static fillConfirmCheckForm() {

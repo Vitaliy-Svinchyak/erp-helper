@@ -119,10 +119,11 @@ if (section) {
     // });
 }
 
-window.addEventListener('error', TipsManager.renderErrorTip);
-
 window.document.body.addEventListener('change', e => formManager.logInputChange(e.target));
 
-for (const image of document.images) {
-    image.addEventListener('error', TipsManager.renderErrorTip);
-}
+// js errors + ajax erros
+window.addEventListener('error', TipsManager.renderErrorTip);
+// violates private policy
+// if ($ && $ instanceof Function) {
+//     $(document).ajaxError(TipsManager.renderErrorTip);
+// }
