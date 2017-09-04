@@ -2,11 +2,11 @@
   "manifest_version": 2,
   "name": "Mango automation",
   "description": "For help",
-  "version": "1.5.4",
+  "version": "2.0",
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html",
-    "default_title": "ми в дупі"
+    "default_title": "Одна дупа добре, а двi краще"
   },
   "icons": {
     "16": "icon.png",
@@ -16,13 +16,17 @@
   "content_scripts": [
     {
       "matches": [
-        "http://*.kredo.al/*",
         "https://*.kredo.al/*",
+        "https://*.tigo.mk/*",
         "*://dev.erp.al/*",
-        "*://dev.cms.al/*"
+        "*://dev.cms.al/*",
+        "*://dev.erp.mk/*",
+        "*://dev.cms.mk/*"
       ],
       "js": [
         "content-scripts/helper.js",
+        "content-scripts/country-fillers/al-filler.js",
+        "content-scripts/country-fillers/mk-filler.js",
         "content-scripts/filler.js",
         "content-scripts/achivementHelper.js",
         "content-scripts/tipsManager.js",

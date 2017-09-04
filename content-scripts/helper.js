@@ -22,7 +22,7 @@ class Helper {
         return reduce[toTranslate - 180] + String(year).substr(3, 1);
     }
 
-    static getRandomMap() {
+    static getRandomidNumber_al() {
         const DD = Helper.generateRandomInteger(1, 28, 2).toString();
         const sex = Helper.generateRandomInteger(1, 2, 1).toString();
         const MM = sex === 1 ? Helper.generateRandomInteger(1, 12, 2).toString() :
@@ -33,6 +33,23 @@ class Helper {
         const C = YY[0];
 
         return YY + MM + DD + SSS + C;
+    }
+
+    static getRandomidNumber_mk() {
+        const DD = Helper.generateRandomInteger(1, 28, 2).toString();
+        const MM = Helper.generateRandomInteger(1, 13, 2).toString();
+        const YYY = Helper.generateRandomInteger(970, 995, 3).toString();
+        const RR = Helper.generateRandomInteger(41, 50, 2).toString();
+        const BBB = Helper.generateRandomInteger(0, 999, 3).toString();
+        const s = DD + MM + YYY + RR + BBB;
+        let K = ( ( 7 * (+s[0] + +s[6]) + 6 * (+s[1] + +s[7]) + 5 * (+s[2] + +s[8]) + 4 * (+s[3] + +s[9]) + 3 * (+s[4] + +s[10]) + 2 * (+s[5] + +s[11]) ) % 11);
+        K = 11 - K;
+
+        if (K > 9) {
+            K = 0;
+        }
+
+        return s + K;
     }
 
     static generateRandomString(stringLength, onlyEnghlish) {
@@ -86,11 +103,18 @@ class Helper {
         return Helper.generateRandomString(null, true) + '@' + Helper.generateRandomString(4, true) + '.com';
     }
 
-    static generateRandomMobilePhone() {
+    static generateRandomMobilePhone_al() {
         const startVariants = [66, 67, 68, 69];
         const startNumber = startVariants[Helper.generateRandomInteger(0, startVariants.length - 1)];
 
         return startNumber.toString() + Helper.generateRandomInteger(1111111, 9999999).toString();
+    }
+
+    static generateRandomMobilePhone_mk() {
+        const startVariants = ['02', '03', '04', '07'];
+        const startNumber = startVariants[Helper.generateRandomInteger(0, startVariants.length - 1)];
+
+        return startNumber.toString() + Helper.generateRandomInteger(111111, 999999).toString();
     }
 
     static generateRandomHomePhone() {
@@ -100,6 +124,14 @@ class Helper {
     static generateRandomDate(inFuture) {
         inFuture = inFuture || false;
         const year = inFuture ? Helper.generateRandomInteger(2018, 2020, 4) : Helper.generateRandomInteger(2000, 2016, 4);
+
+        return Helper.generateRandomInteger(1, 28, 2).toString() + '/' +
+            Helper.generateRandomInteger(1, 12, 2).toString() + '/' +
+            year.toString();
+    }
+
+    static generateRandomBithday() {
+        const year = Helper.generateRandomInteger(1970, 1995, 4);
 
         return Helper.generateRandomInteger(1, 28, 2).toString() + '/' +
             Helper.generateRandomInteger(1, 12, 2).toString() + '/' +

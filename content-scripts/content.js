@@ -110,14 +110,6 @@ window.document.body.addEventListener('keydown', e => {
         document.body.removeChild(document.querySelector('background-screen'));
     }
 });
-const section = document.querySelector('section#page');
-
-if (section) {
-    // very doubtful functionality, maybe I will delete it later
-    // section.addEventListener('mouseover', e => {
-    // TipsManager.route(e.target);
-    // });
-}
 
 window.document.body.addEventListener('change', e => formManager.logInputChange(e.target));
 

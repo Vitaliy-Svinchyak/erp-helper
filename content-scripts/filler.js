@@ -2,13 +2,24 @@
 
 class Filler {
 
+    static executeFillerFunction(name) {
+        switch (window.location.origin.substr(-2, 2)) {
+            case 'mk':
+                MacedonianFiller[name]();
+                break;
+            case 'al':
+                AlbanianFiller[name]();
+                break;
+        }
+    }
+
     static fillCmsApplication() {
-        Helper.setValueWithChangeAndFocus('[name="identificationNumber"]', Helper.getRandomMap());
+        Helper.setValueWithChangeAndFocus('[name="identificationNumber"]', Helper.getRandomidNumber_al());
         Helper.setValueWithChangeAndFocus('[name="name"]', Helper.generateRandomName());
         Helper.setValueWithChangeAndFocus('[name="fathersName"]', Helper.generateRandomName());
         Helper.setValueWithChangeAndFocus('[name="surname"]', Helper.generateRandomName());
         Helper.setValueWithChangeAndFocus('[name="email"]', Helper.generateRandomEmail());
-        Helper.setValueWithChangeAndFocus('[name="phone"]', Helper.generateRandomMobilePhone());
+        Helper.setValueWithChangeAndFocus('[name="phone"]', Helper.generateRandomMobilePhone_al());
         Helper.setValueWithChangeAndFocus('[name="monthlyIncome"]', Helper.generateRandomInteger(250000, 500000));
 
         const division = Helper.generateRandomName();
@@ -64,55 +75,7 @@ class Filler {
     }
 
     static fillErpApplication() {
-        Helper.setValue('[name="service[amount][amount]"]', 10000);
-        Helper.setValue('[name="client[clientIdentificator]"]', Helper.getRandomMap());
-        Helper.setValue('[name="client[name]"]', Helper.generateRandomName());
-        Helper.setValue('[name="client[fathersName]"]', Helper.generateRandomName());
-        Helper.setValue('[name="client[surname]"]', Helper.generateRandomName());
-        Helper.setValue('[name="client[email]"]', Helper.generateRandomEmail());
-        Helper.setValue('[name="client[phone]"]', Helper.generateRandomMobilePhone());
-        Helper.setValue('[name="client[documentNumber]"]', Helper.generateRandomInteger(1000, 100000));
-
-        const division = Helper.generateRandomName();
-        const town = Helper.generateRandomName();
-        const street = Helper.generateRandomName();
-        const house = Helper.generateRandomInteger(1, 999);
-        const entrance = Helper.generateRandomInteger(1, 999);
-        const apartment = Helper.generateRandomInteger(1, 999);
-        const postalCode = Helper.generateRandomInteger(1, 999);
-
-        const valuesText = document.querySelector('[name="client[adrId][text]').value
-            + `|${division}|${town}|${street}|${house}|${entrance}|${apartment}|${postalCode}|`;
-        const idText = document.querySelector('[name="client[adrId][id]"]').value + '|-1|-1|-1|-1|-1|-1|-1';
-
-        Helper.setValue('[name="client[adrId][id]"]', idText);
-        Helper.setValue('[name="client[adrId][text]', valuesText);
-        Helper.setValue('[name="client[adrDivision]"]', division);
-        Helper.setValue('[name="client[adrCity]"]', town);
-        Helper.setValue('[name="client[adrStreet]"]', street);
-        Helper.setValue('[name="client[adrHouse]"]', house);
-        Helper.setValue('[name="client[adrEntrance]"]', entrance);
-        Helper.setValue('[name="client[adrApartment]"]', apartment);
-        Helper.setValue('[name="client[adrPostcode]"]', postalCode);
-
-        document.querySelector('[name="client[adrCity]"]').removeAttribute('disabled');
-        document.querySelector('[name="client[adrStreet]"]').removeAttribute('disabled');
-        document.querySelector('[name="client[adrHouse]"]').removeAttribute('disabled');
-        document.querySelector('[name="client[adrEntrance]"]').removeAttribute('disabled');
-        document.querySelector('[name="client[adrApartment]"]').removeAttribute('disabled');
-        document.querySelector('[name="client[adrPostcode]"]').removeAttribute('disabled');
-
-        document.querySelector('[name="service[amount][amount]"').focus();
-
-        const port = chrome.extension.connect();
-        port.postMessage(
-            {
-                'class': 'application',
-                'method': 'onFilled',
-                'data': {'type': 'erp'}
-            }
-        );
-        port.disconnect();
+        this.executeFillerFunction('fillErpApplication');
     }
 
     static getInputsToFill(formName) {
