@@ -1,23 +1,23 @@
 # Одна кнопка,чтобы править всеми
  Возможности
 - Заполнять форму создания Application
-  - erp
-  - web
+  - erp (al, mk)
+  - web (al)
   
 - Заполнять форму Todo
-  - Credit Db Manual Check
-  - Id Document Check
-  - Household Bill Check
-  - Payslip Check
-  - Client Primary Info
-  - Employer Info
-  - Bank Account
-  - Confirm Check
+  - Credit Db Manual Check (al)
+  - Id Document Check (al)
+  - Household Bill Check (al)
+  - Payslip Check (al)
+  - Client Primary Info (al, mk)
+  - Employer Info (al, mk)
+  - Bank Account (al)
+  - Confirm Check (al)
   
 - Заполнять форму
-  - Создание payment
-  - Assign payment
-  - Client registration
+  - Создание payment (al)
+  - Assign payment (al)
+  - Client registration (al)
   
 - Сочетания клавиш: 
   - Заполнить форму - ctrl + Q

@@ -94,30 +94,31 @@ class TipsManager {
         const html = `
                             <h1>Одна кнопка,чтобы править всеми</h1>
                             <h2>Возможности</h2>
+                            <br>
                             <ol>
                                 <li>Заполнять форму создания Application
                                     <ol>
-                                        <li>erp</li>
-                                        <li>web</li>
+                                        <li>erp (al, mk)</li>
+                                        <li>web (al)</li>
                                     </ol>
                                 </li>
                                 <li>Заполнять форму Todo
                                     <ol>
-                                        <li>Credit Db Manual Check</li>
-                                        <li>Id Document Check</li>
-                                        <li>Household Bill Check</li>
-                                        <li>Payslip Check</li>
-                                        <li>Client Primary Info</li>
-                                        <li>Employer Info</li>
-                                        <li>Bank Account</li>
-                                        <li>Confirm Check</li>
+                                        <li>Credit Db Manual Check (al)</li>
+                                        <li>Id Document Check (al)</li>
+                                        <li>Household Bill Check (al)</li>
+                                        <li>Payslip Check (al)</li>
+                                        <li>Client Primary Info (al, mk)</li>
+                                        <li>Employer Info (al, mk)</li>
+                                        <li>Bank Account (al)</li>
+                                        <li>Confirm Chec (al)</li>
                                     </ol>
                                 </li>
                                 <li>Заполнять форму
                                     <ol>
-                                        <li>Создание payment</li>
-                                        <li>Assign payment</li>
-                                        <li>Client registration</li>
+                                        <li>Создание payment (al)</li>
+                                        <li>Assign payment (al)</li>
+                                        <li>Client registration (al)</li>
                                     </ol>
                                 </li>
                                 <li>Сочетания клавиш

@@ -29,7 +29,7 @@ const erpHelperRouter = {
                 Filler.fillCmsApplication();
                 break;
             case '/applications/add':
-                Filler.fillErpApplication();
+                Filler.executeFillerFunction('fillErpApplication')();
                 break;
             default:
                 break;
@@ -57,10 +57,10 @@ const erpHelperRouter = {
                 Filler.fillPayrollOrIrsForm();
                 break;
             case 'client-primary-info':
-                Filler.fillPrimaryInfoForm();
+                Filler.executeFillerFunction('fillPrimaryInfoForm');
                 break;
             case 'employer-and-insurance':
-                Filler.fillEmployerForm();
+                Filler.executeFillerFunction('fillEmployerForm');
                 break;
             case 'bank-account-confirmation':
                 Filler.fillBankAccountForm();

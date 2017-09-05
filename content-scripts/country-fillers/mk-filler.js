@@ -1,6 +1,6 @@
 class MacedonianFiller {
     static fillErpApplication() {
-        Helper.setValue('[name="service[amount][amount]"]', 10000);
+        Helper.setValue('[name="service[amount][amount]"]', 5555);
         Helper.setValue('[name="client[clientIdentificator]"]', Helper.getRandomidNumber_mk());
         Helper.setValue('[name="client[name]"]', Helper.generateRandomName());
         Helper.setValue('[name="client[fathersName]"]', Helper.generateRandomName());
@@ -17,5 +17,48 @@ class MacedonianFiller {
         const sources =
             Array.prototype.slice.call(document.querySelector('[name="client[informationSource]"]').options, 1);
         Helper.setValue('[name="client[informationSource]"]', sources[Helper.generateRandomInteger(0, sources.length - 1)].value);
+    }
+
+    static fillEmployerForm() {
+        Helper.setValueWithChangeAndFocus('[name="client[haveMedicalInsurance]"]', 1);
+        Helper.setValue('[name="client[medicalInsurancePrintscreen]"]', 'printscreen');
+
+        Helper.setValueWithChangeAndFocus('[name="client[clientEmploymentStatus]"]', 1);
+        Helper.setValue('[name="client[clientEmployers][0][title]"]', Helper.generateRandomName());
+        Helper.setValue('[name="client[clientEmployers][0][contactPerson]"]', Helper.generateRandomName());
+        Helper.setValue('[name="client[clientEmployers][0][phone]"]', Helper.generateRandomMobilePhone_mk());
+        Helper.setValue('[name="client[clientEmployers][0][comment]"]', 'ehal comment 4erez comment');
+    }
+
+    static fillPrimaryInfoForm() {
+        Helper.setValue('[name="client[homePhone]"]', Helper.generateRandomMobilePhone_mk());
+
+        for (let i = 0; i <= 1; i++) {
+            if (document.querySelector(`[name="client[clientAddress][${i}][adrCity]"]`).value === '') {
+                const town = Helper.generateRandomName();
+                const street = Helper.generateRandomName();
+                const house = Helper.generateRandomInteger(1, 999);
+                const apartment = Helper.generateRandomInteger(1, 999);
+                const postalCode = Helper.generateRandomInteger(1, 999);
+
+                const valuesText = document.querySelector(`[name="client[clientAddress][${i}][adrId][text]"]`).value
+                    + `|${town}|${street}|${house}|${apartment}|${postalCode}|`;
+                const idText = document.querySelector(`[name="client[clientAddress][${i}][adrId][id]"]`).value + `|-1|-1|-1|-1|-1`;
+
+                Helper.setValue(`[name="client[clientAddress][${i}][adrCity]"]`, town).removeAttribute(`disabled`);
+                Helper.setValue(`[name="client[clientAddress][${i}][adrStreet]"]`, street).removeAttribute(`disabled`);
+                Helper.setValue(`[name="client[clientAddress][${i}][adrHouse]"]`, house).removeAttribute(`disabled`);
+                Helper.setValue(`[name="client[clientAddress][${i}][adrApartment]"]`, apartment).removeAttribute(`disabled`);
+                Helper.setValue(`[name="client[clientAddress][${i}][adrPostcode]"]`, postalCode).removeAttribute(`disabled`);
+
+                Helper.setValue(`[name="client[clientAddress][${i}][adrId][id]"]`, idText);
+                Helper.setValue(`[name="client[clientAddress][${i}][adrId][text]"]`, valuesText);
+            }
+        }
+
+        Helper.setValue('[name="client[clientContactPersons][0][name]"]', Helper.generateRandomName());
+        Helper.setValue('[name="client[clientContactPersons][0][surname]"]', Helper.generateRandomName());
+        Helper.setValue('[name="client[clientContactPersons][0][relationType]"]', 'Friend');
+        Helper.setValue('[name="client[clientContactPersons][0][phone]"]', Helper.generateRandomMobilePhone_mk());
     }
 }
