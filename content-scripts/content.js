@@ -29,7 +29,7 @@ const erpHelperRouter = {
                 Filler.fillCmsApplication();
                 break;
             case '/applications/add':
-                Filler.executeFillerFunction('fillErpApplication')();
+                Filler.executeFillerFunction('fillErpApplication');
                 break;
             default:
                 break;

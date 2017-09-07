@@ -1,6 +1,6 @@
 class MacedonianFiller {
     static fillErpApplication() {
-        Helper.setValue('[name="service[amount][amount]"]', 5555);
+        Helper.setValue('[name="service[amount][amount]"]', 2000);
         Helper.setValue('[name="client[clientIdentificator]"]', Helper.getRandomidNumber_mk());
         Helper.setValue('[name="client[name]"]', Helper.generateRandomName());
         Helper.setValue('[name="client[fathersName]"]', Helper.generateRandomName());
@@ -20,14 +20,19 @@ class MacedonianFiller {
     }
 
     static fillEmployerForm() {
-        Helper.setValueWithChangeAndFocus('[name="client[haveMedicalInsurance]"]', 1);
-        Helper.setValue('[name="client[medicalInsurancePrintscreen]"]', 'printscreen');
-
         Helper.setValueWithChangeAndFocus('[name="client[clientEmploymentStatus]"]', 1);
+        Helper.setValueWithChangeAndFocus('[name="client[clientEmployers][0][dateOfEmployment]"]', Helper.generateRandomDate().substr(3));
         Helper.setValue('[name="client[clientEmployers][0][title]"]', Helper.generateRandomName());
         Helper.setValue('[name="client[clientEmployers][0][contactPerson]"]', Helper.generateRandomName());
+        Helper.setValue('[name="client[clientEmployers][0][email]"]', Helper.generateRandomEmail());
         Helper.setValue('[name="client[clientEmployers][0][phone]"]', Helper.generateRandomMobilePhone_mk());
-        Helper.setValue('[name="client[clientEmployers][0][comment]"]', 'ehal comment 4erez comment');
+        Helper.setValue('[name="client[clientEmployers][0][salaryPerCycle][amount]"]', Helper.generateRandomInteger(5000, 10000));
+        Helper.setValue('[name="client[additionalIncome][amount]"]', Helper.generateRandomInteger(500, 1000));
+
+        const incomeTypes =
+            Array.prototype.slice.call(document.querySelector('[name="client[additionalIncome][type]"]').options);
+
+        Helper.setValue('[name="client[additionalIncome][type]"]', incomeTypes[Helper.generateRandomInteger(0, incomeTypes.length - 1)].value);
     }
 
     static fillPrimaryInfoForm() {
