@@ -11,12 +11,6 @@ const erpHelperRouter = {
             case 'help':
                 TipsManager.showHelp();
                 break;
-            case 'achievement':
-                AchivementHelper.renderAchievement(options.data);
-                break;
-            case 'check404':
-                AchivementHelper.check404();
-                break;
             default:
                 break;
         }
@@ -113,7 +107,7 @@ window.document.body.addEventListener('keydown', e => {
 
 window.document.body.addEventListener('change', e => formManager.logInputChange(e.target));
 
-// js errors + ajax erros
+// js errors + ajax errors
 window.addEventListener('error', TipsManager.renderErrorTip);
 // violates private policy
 // if ($ && $ instanceof Function) {

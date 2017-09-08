@@ -1,7 +1,7 @@
 class MacedonianFiller {
     static fillErpApplication() {
         Helper.setValue('[name="service[amount][amount]"]', 2000);
-        Helper.setValue('[name="client[clientIdentificator]"]', Helper.getRandomidNumber_mk());
+        Helper.setValue('[name="client[clientIdentificator]"]', Helper.getRandomIdNumber_mk());
         Helper.setValue('[name="client[name]"]', Helper.generateRandomName());
         Helper.setValue('[name="client[fathersName]"]', Helper.generateRandomName());
         Helper.setValue('[name="client[surname]"]', Helper.generateRandomName());
@@ -10,11 +10,11 @@ class MacedonianFiller {
         Helper.setValue('[name="client[documentNumber]"]', Helper.generateRandomInteger(1000, 100000));
         Helper.setValue('[name="client[language]"]', 'mk');
 
-        MacedonianFiller.fillAddreses();
+        MacedonianFiller.fillAddresses();
         document.querySelector('[name="service[amount][amount]"]').focus();
     }
 
-    static fillAddreses() {
+    static fillAddresses() {
         for (let i = 0; i <= 1; i++) {
             if (document.querySelector(`[name="client[clientAddress][${i}][adrCity]"]`)) {
                 const cities =
@@ -63,7 +63,7 @@ class MacedonianFiller {
     static fillPrimaryInfoForm() {
         Helper.setValue('[name="client[homePhone]"]', Helper.generateRandomMobilePhone_mk());
 
-        MacedonianFiller.fillAddreses();
+        MacedonianFiller.fillAddresses();
 
         Helper.setValue('[name="client[clientContactPersons][0][name]"]', Helper.generateRandomName());
         Helper.setValue('[name="client[clientContactPersons][0][surname]"]', Helper.generateRandomName());

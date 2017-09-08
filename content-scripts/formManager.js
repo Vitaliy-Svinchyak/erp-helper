@@ -42,6 +42,7 @@ class FormManager {
                         if (element.parentNode.tagName === 'LABEL') {
                             return element.parentNode.textContent.trim();
                         }
+                        return element.value;
                     default:
                         return element.value;
                 }
@@ -79,7 +80,7 @@ class FormManager {
             }
         }
 
-        // Is satisifactorily has such nesting
+        // Is satisfactorily has such nesting
         // todo can broke sth
         if (element.type === 'radio') {
             parentContainer = element.parentNode.parentNode.parentNode.parentNode;

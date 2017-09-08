@@ -22,7 +22,7 @@ class Helper {
         return reduce[toTranslate - 180] + String(year).substr(3, 1);
     }
 
-    static getRandomidNumber_al() {
+    static getRandomIdNumber_al() {
         const DD = Helper.generateRandomInteger(1, 28, 2).toString();
         const sex = Helper.generateRandomInteger(1, 2, 1).toString();
         const MM = sex === 1 ? Helper.generateRandomInteger(1, 12, 2).toString() :
@@ -35,7 +35,7 @@ class Helper {
         return YY + MM + DD + SSS + C;
     }
 
-    static getRandomidNumber_mk() {
+    static getRandomIdNumber_mk() {
         const DD = Helper.generateRandomInteger(1, 28, 2).toString();
         const MM = Helper.generateRandomInteger(1, 13, 2).toString();
         const YYY = Helper.generateRandomInteger(970, 995, 3).toString();
@@ -52,15 +52,15 @@ class Helper {
         return s + K;
     }
 
-    static generateRandomString(stringLength, onlyEnghlish) {
+    static generateRandomString(stringLength, onlyEnglish) {
         stringLength = stringLength || Helper.generateRandomInteger(3, 10);
-        onlyEnghlish = onlyEnghlish || false;
+        onlyEnglish = onlyEnglish || false;
         let consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'k', 'l', 'm',
             'n', 'p', 'q', 'r', 's', 't', 'v', 'x', 'z', 'dh', 'gj', 'll', 'nj', 'rr', 'th', 'xh', 'zh',
             'sf', 'tj', 'kr', 'nd', 'kz', 'st', 'nc', 'mb'];
         let vowels = ['a', 'e', 'o', 'u', 'y', 'i', 'ye'];
 
-        if (!onlyEnghlish) {
+        if (!onlyEnglish) {
             consonants = consonants.concat(['ç']);
             vowels = vowels.concat(['ë', 'ë', 'ë']);
         }
@@ -93,8 +93,8 @@ class Helper {
         return string;
     }
 
-    static generateRandomName(nameLength, onlyEnghlish) {
-        const name = Helper.generateRandomString(nameLength, onlyEnghlish);
+    static generateRandomName(nameLength, onlyEnglish) {
+        const name = Helper.generateRandomString(nameLength, onlyEnglish);
 
         return name.charAt(0).toUpperCase() + name.slice(1);
     }
@@ -130,7 +130,7 @@ class Helper {
             year.toString();
     }
 
-    static generateRandomBithday() {
+    static generateRandomBirthday() {
         const year = Helper.generateRandomInteger(1970, 1995, 4);
 
         return Helper.generateRandomInteger(1, 28, 2).toString() + '/' +

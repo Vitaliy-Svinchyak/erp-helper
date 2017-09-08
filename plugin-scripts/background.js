@@ -1,7 +1,9 @@
 "use strict";
-
 window.onload = function () {
 
+    /**
+     * @param {{class,data,method}}options
+     */
     const factory = (options) => {
         if (options && options.class && options.method) {
             if (options.data) {

@@ -1,7 +1,7 @@
 class AlbanianFiller {
     static fillErpApplication() {
         Helper.setValue('[name="service[amount][amount]"]', 10000);
-        Helper.setValue('[name="client[clientIdentificator]"]', Helper.getRandomidNumber_al());
+        Helper.setValue('[name="client[clientIdentificator]"]', Helper.getRandomIdNumber_al());
         Helper.setValue('[name="client[name]"]', Helper.generateRandomName());
         Helper.setValue('[name="client[fathersName]"]', Helper.generateRandomName());
         Helper.setValue('[name="client[surname]"]', Helper.generateRandomName());

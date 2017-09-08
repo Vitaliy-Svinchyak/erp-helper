@@ -14,7 +14,7 @@ class Filler {
     }
 
     static fillCmsApplication() {
-        Helper.setValueWithChangeAndFocus('[name="identificationNumber"]', Helper.getRandomidNumber_al());
+        Helper.setValueWithChangeAndFocus('[name="identificationNumber"]', Helper.getRandomIdNumber_al());
         Helper.setValueWithChangeAndFocus('[name="name"]', Helper.generateRandomName());
         Helper.setValueWithChangeAndFocus('[name="fathersName"]', Helper.generateRandomName());
         Helper.setValueWithChangeAndFocus('[name="surname"]', Helper.generateRandomName());
@@ -85,10 +85,11 @@ class Filler {
                 });
         });
 
+        //noinspection JSCheckFunctionSignatures
         Filler.observerOfTodoBody.observe(target, {childList: true, subtree: true});
     }
 
-    static fillSatisfatoryInputs(formName) {
+    static fillSatisfactoryInputs(formName) {
         for (const satisfactory of Filler.getSatisfactoryInputs(formName)) {
 
             if (satisfactory.name.match(/\[[a-zA-Z]*]/)[0] === '[isSatisfactorily]' && satisfactory.value === '1') {
@@ -157,7 +158,7 @@ class Filler {
                 }
             }
 
-            Filler.fillSatisfatoryInputs(formName);
+            Filler.fillSatisfactoryInputs(formName);
         };
 
 
@@ -204,7 +205,7 @@ class Filler {
                 }
             }
 
-            Filler.fillSatisfatoryInputs(formName);
+            Filler.fillSatisfactoryInputs(formName);
         };
 
         if (inputsToFill.length === 0 && addDocumentButton) {
@@ -237,14 +238,14 @@ class Filler {
                         if (input.type === 'number') {
                             input.value = Helper.generateRandomInteger(300, 3000);
                         } else {
-                            const additionalIncomTypes = input.children;
-                            let randomKey = Math.floor(Math.random() * additionalIncomTypes.length);
+                            const additionalIncomeTypes = input.children;
+                            let randomKey = Math.floor(Math.random() * additionalIncomeTypes.length);
 
                             if (randomKey === 0) {
                                 randomKey++;
                             }
 
-                            input.value = additionalIncomTypes[randomKey].value;
+                            input.value = additionalIncomeTypes[randomKey].value;
                         }
                         break;
                     case'[income]':
@@ -257,7 +258,7 @@ class Filler {
                 }
             }
             Helper.setValueWithChangeAndFocus(inputsToFill[3], inputsToFill[3].value);
-            Filler.fillSatisfatoryInputs(formName);
+            Filler.fillSatisfactoryInputs(formName);
         };
 
         if (inputsToFill.length === 0 && addDocumentButton) {
@@ -306,6 +307,7 @@ class Filler {
                 });
         });
 
+        //noinspection JSCheckFunctionSignatures
         observerOfSuggestions.observe(target, {attributes: true});
 
         Helper.setValueWithChangeAndFocus('input[name="bankName"]', bankName);
@@ -343,6 +345,7 @@ class Filler {
                 });
         });
 
+        //noinspection JSCheckFunctionSignatures
         Filler.observerOfPopup.observe(target, {childList: true, subtree: true});
 
         Helper.clickElement('#manual_assign_btn');
@@ -350,10 +353,6 @@ class Filler {
 
     static fillClientRegistration() {
         Filler.fillCmsApplication();
-        // Helper.setValue('[data-addr="fullAddress"]', document.querySelector('[name="address[adrId][text]"]').value);
-        // const currentId = document.querySelector('[name="address[adrId][id]"]').value.split('|');
-        // currentId[0] = 10000;
-        // Helper.setValue('[name="address[adrId][id]"]', currentId.join('|'));
     }
 
     static fillConfirmCheckForm() {

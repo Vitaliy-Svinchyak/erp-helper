@@ -6,14 +6,14 @@ class TipsManager {
         if (!document.querySelector('.error-tip')) {
             const container =
                 `<div class="error-tip">
-<div class="error-circle">✖</div>
-<span class="error-count">0</span>
-</div>`;
+                    <div class="error-circle">✖</div>
+                    <span class="error-count">0</span>
+                </div>`;
             document.body.insertAdjacentHTML('beforeend', container);
         }
 
         const errorsCount = +document.querySelector('.error-tip .error-count').textContent;
-        document.querySelector('.error-tip .error-count').textContent = errorsCount + 1;
+        document.querySelector('.error-tip .error-count').textContent = (errorsCount + 1).toString();
     }
 
     static showHelp() {
@@ -37,7 +37,7 @@ class TipsManager {
                                         <li>Client Primary Info (al, mk)</li>
                                         <li>Employer Info (al, mk)</li>
                                         <li>Bank Account (al)</li>
-                                        <li>Confirm Chec (al)</li>
+                                        <li>Confirm Check (al)</li>
                                     </ol>
                                 </li>
                                 <li>Заполнять форму
