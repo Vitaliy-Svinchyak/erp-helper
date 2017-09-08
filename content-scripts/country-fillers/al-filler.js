@@ -1,3 +1,5 @@
+"use strict";
+
 class AlbanianFiller {
     static fillErpApplication() {
         Helper.setValue('[name="service[amount][amount]"]', 10000);

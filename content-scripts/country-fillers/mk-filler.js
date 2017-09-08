@@ -1,3 +1,5 @@
+"use strict";
+
 class MacedonianFiller {
     static fillErpApplication() {
         Helper.setValue('[name="service[amount][amount]"]', 2000);

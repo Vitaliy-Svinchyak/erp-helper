@@ -1,12 +1,17 @@
 "use strict";
-/** @var Helper Helper **/
+
 class FormManager {
 
     constructor() {
-
         this.changeLog = {};
     }
 
+    /**
+     * Detects value change of element and adds it to the changeLog
+     *
+     * @param {HTMLInputElement|HTMLSelectElement} element - element to detect change
+     * @param {boolean|undefined} disabled - if it must be disabled in result list, false by default
+     */
     logInputChange(element, disabled) {
         // do not log changes of our textarea for copy
         if (element.classList.contains('form-changes')) {
@@ -14,13 +19,13 @@ class FormManager {
         }
 
         disabled = disabled || false;
-        const label = this.detectLabel(element);
+        const label = this.getInputLabel(element);
         const date = new Date();
         const hours = Helper.generateZerosBeforeNumber(date.getHours(), 2);
         const minutes = Helper.generateZerosBeforeNumber(date.getMinutes(), 2);
         const seconds = Helper.generateZerosBeforeNumber(date.getSeconds(), 2);
         const time = `${hours}:${minutes}:${seconds}`;
-        const value = this.getElementValue(element);
+        const value = this.getInputValue(element);
 
         this.changeLog[this.getPathTo(element)] = {
             label: label,
@@ -30,33 +35,40 @@ class FormManager {
         };
     }
 
-    getElementValue(element) {
-        switch (element.tagName) {
+    /**
+     * Returns formatted value of input based on its type
+     *
+     * @param {HTMLInputElement|HTMLSelectElement} input - the input whose value is to be obtained
+     *
+     * @returns {string} value or error message
+     */
+    getInputValue(input) {
+        switch (input.tagName) {
             case 'TEXTAREA':
             case 'INPUT':
-                switch (element.type) {
+                switch (input.type) {
                     case 'checkbox':
-                        return element.checked ? 'Yes' : 'No';
+                        return input.checked ? 'Yes' : 'No';
                     case 'radio':
                         // I saw radio buttons only inside label
-                        if (element.parentNode.tagName === 'LABEL') {
-                            return element.parentNode.textContent.trim();
+                        if (input.parentNode.tagName === 'LABEL') {
+                            return input.parentNode.textContent.trim();
                         }
-                        return element.value;
+                        return input.value;
                     default:
-                        return element.value;
+                        return input.value;
                 }
             case 'SELECT':
                 // select can be multiple
                 let selectedOptions = [];
-                for (const option of element.options) {
+                for (const option of input.options) {
                     if (option.selected) {
                         selectedOptions.push(option.textContent.trim());
                     }
                 }
 
-                if (selectedOptions.length === 0 && element.options[0]) {
-                    selectedOptions.push(element.options[0].textContent.trim());
+                if (selectedOptions.length === 0 && input.options[0]) {
+                    selectedOptions.push(input.options[0].textContent.trim());
                 }
 
                 return selectedOptions.join(' , ');
@@ -67,13 +79,20 @@ class FormManager {
         }
     }
 
-    detectLabel(element) {
+    /**
+     * Detects input label based on different conditions and returns its label
+     *
+     * @param {HTMLInputElement|HTMLSelectElement} input - the input whose label is to be obtained
+     *
+     * @returns {string} - label of input or its name if label not found
+     */
+    getInputLabel(input) {
         let label;
-        let parentContainer = element.parentNode;
+        let parentContainer = input.parentNode;
 
         // by label binded by id
-        if (element.id) {
-            label = document.querySelector(`label[for="${element.id}"]`);
+        if (input.id) {
+            label = document.querySelector(`label[for="${input.id}"]`);
 
             if (label) {
                 return label.textContent.trim();
@@ -82,8 +101,8 @@ class FormManager {
 
         // Is satisfactorily has such nesting
         // todo can broke sth
-        if (element.type === 'radio') {
-            parentContainer = element.parentNode.parentNode.parentNode.parentNode;
+        if (input.type === 'radio') {
+            parentContainer = input.parentNode.parentNode.parentNode.parentNode;
         }
 
         for (let i = 0; i <= 5; i++) {
@@ -105,9 +124,14 @@ class FormManager {
             parentContainer = parentContainer.parentNode;
         }
 
-        return element.name;
+        return input.name;
     }
 
+    /**
+     * @param {HTMLElement|Node} parentContainer
+     *
+     * @returns {string|null}
+     */
     getOneLabelForTwoFields(parentContainer) {
         if (parentContainer.children[0].tagName === 'LABEL') {
             const content = parentContainer.children[0].textContent.trim();
@@ -120,6 +144,11 @@ class FormManager {
         return null;
     }
 
+    /**
+     * @param {HTMLElement|Node} parentContainer
+     *
+     * @returns {string|null}
+     */
     getTableStyleLabel(parentContainer) {
         if (parentContainer.children[0].tagName === 'TD'
             && parentContainer.children.length
@@ -135,6 +164,11 @@ class FormManager {
         return null;
     }
 
+    /**
+     * @param {HTMLElement|Node} parentContainer
+     *
+     * @returns {string|null}
+     */
     getIdDocumentStyleLabel(parentContainer) {
         if (parentContainer.children[0].tagName === 'TD') {
             const content = parentContainer.children[0].textContent.trim();
@@ -147,6 +181,11 @@ class FormManager {
         return null;
     }
 
+    /**
+     * Returns all inputs on page. But if it is page with todo_ - inputs of todo_
+     *
+     * @returns {Array<HTMLInputElement|HTMLSelectElement>} inputs
+     */
     getInputElements() {
         let addionalQuery = '';
         // if it is page with todos - select only inputs inside it
@@ -182,6 +221,9 @@ class FormManager {
         return elements;
     }
 
+    /**
+     * Detects changes in inputs after auto-filling with th help of this extension
+     */
     detectFormChanges() {
         this.changeLog = {};
         const elements = this.getInputElements();
@@ -193,7 +235,10 @@ class FormManager {
         }
     }
 
-    detectNotChangedFields() {
+    /**
+     * Logs values of inputs which were not changed
+     */
+    logNotChangedFields() {
         const elements = this.getInputElements();
 
         for (const element of elements) {
@@ -212,8 +257,11 @@ class FormManager {
         }
     }
 
+    /**
+     * Generates html of form input values and shows them in modal window
+     */
     showFormChanges() {
-        this.detectNotChangedFields();
+        this.logNotChangedFields();
         let changes = '';
 
         for (const changeKey in this.changeLog) {
@@ -224,16 +272,20 @@ class FormManager {
             const change = this.changeLog[changeKey];
             const disabledClass = change.disabled ? 'class="disabled"' : '';
             changes += `<tr ${disabledClass} hash="${changeKey}">
-                                            <td>${change.time}</td>
-                                            <td>input</td>
-                                            <td>${change.label}</td>
-                                            <td>${change.value}</td>
-                                        </tr>`;
+                            <td>${change.time}</td>
+                            <td>input</td>
+                            <td>${change.label}</td>
+                            <td>${change.value}</td>
+                        </tr>`;
         }
 
         this.insertFormChanges(changes);
     }
 
+    /**
+     * Generates text representation of input values which user selects, inserts them in textarea,
+     * moves focus on it and auto-copies them to the clipboard
+     */
     generateTextWithChanges() {
         let changes = '';
         let rows = 1;
@@ -285,6 +337,10 @@ class FormManager {
 
     }
 
+    /**
+     * Renders modal of input values
+     * @param {string} data - html of input values
+     */
     insertFormChanges(data) {
         const html = `<table>
                         <thead>
@@ -315,6 +371,13 @@ class FormManager {
         });
     }
 
+    /**
+     * Generates unique(maybe not) path to element
+     *
+     * @param {HTMLElement|Node} element - element to which path must be generated
+     *
+     * @returns {string} - path
+     */
     getPathTo(element) {
         if (element.id !== '') {
             return "id('" + element.id + "')";
