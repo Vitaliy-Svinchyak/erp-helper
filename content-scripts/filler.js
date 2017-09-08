@@ -62,16 +62,6 @@ class Filler {
         if (!document.querySelector('[name="acceptTerms').checked) {
             document.querySelector('[name="acceptTerms').click();
         }
-
-        const port = chrome.extension.connect();
-        port.postMessage(
-            {
-                'class': 'application',
-                'method': 'onFilled',
-                'data': {'type': 'web'}
-            }
-        );
-        port.disconnect();
     }
 
     static getInputsToFill(formName) {

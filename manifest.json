@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Mango automation",
   "description": "For help",
-  "version": "2.1.2",
+  "version": "2.2",
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html",
@@ -30,7 +30,6 @@
         "content-scripts/country-fillers/al-filler.js",
         "content-scripts/country-fillers/mk-filler.js",
         "content-scripts/filler.js",
-        "content-scripts/achivementHelper.js",
         "content-scripts/tipsManager.js",
         "content-scripts/formManager.js",
         "content-scripts/content.js"
