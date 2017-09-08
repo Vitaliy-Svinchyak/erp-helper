@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Mango automation",
   "description": "For help",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html",
@@ -17,7 +17,9 @@
     {
       "matches": [
         "https://*.kredo.al/*",
+        "http://*.kredo.al/*",
         "https://*.tigo.mk/*",
+        "http://*.tigo.mk/*",
         "*://dev.erp.al/*",
         "*://dev.cms.al/*",
         "*://dev.erp.mk/*",

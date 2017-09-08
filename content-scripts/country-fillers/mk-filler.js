@@ -10,13 +10,38 @@ class MacedonianFiller {
         Helper.setValue('[name="client[documentNumber]"]', Helper.generateRandomInteger(1000, 100000));
         Helper.setValue('[name="client[language]"]', 'mk');
 
-        const genders = ['m', 'f'];
-        Helper.setValue('[name="client[gender]"]', genders[Helper.generateRandomInteger(0, 1)]);
-        Helper.setValue('[name="client[birthday]"]', Helper.generateRandomBithday());
+        MacedonianFiller.fillAddreses();
+        document.querySelector('[name="service[amount][amount]"]').focus();
+    }
 
-        const sources =
-            Array.prototype.slice.call(document.querySelector('[name="client[informationSource]"]').options, 1);
-        Helper.setValue('[name="client[informationSource]"]', sources[Helper.generateRandomInteger(0, sources.length - 1)].value);
+    static fillAddreses() {
+        for (let i = 0; i <= 1; i++) {
+            if (document.querySelector(`[name="client[clientAddress][${i}][adrCity]"]`)) {
+                const cities =
+                    Array.prototype.slice.call(document.querySelector(`[name="client[clientAddress][${i}][adrCity]"]`).options, 1);
+                Helper.setValueWithChangeAndFocus(
+                    `[name="client[clientAddress][${i}][adrCity]"]`,
+                    cities[Helper.generateRandomInteger(0, cities.length - 1)].value
+                );
+                setTimeout(() => {
+                    const street = Helper.generateRandomName();
+                    const house = Helper.generateRandomInteger(1, 999);
+                    const apartment = Helper.generateRandomInteger(1, 999);
+                    const currentId = document.querySelector(`[name="client[clientAddress][${i}][adrId][id]`).value.split('|');
+                    const currentValue = document.querySelector(`[name="client[clientAddress][${i}][adrId][text]`).value.split('|');
+
+                    const valuesText = currentValue[0] + `|${street}|${house}|${apartment}|` + currentValue[1];
+                    const idText = currentId[0] + '|-1|-1|-1|' + currentId[1];
+
+                    Helper.setValue(`[name="client[clientAddress][${i}][adrStreet]"]`, street).removeAttribute('disabled');
+                    Helper.setValue(`[name="client[clientAddress][${i}][adrHouse]"]`, house).removeAttribute('disabled');
+                    Helper.setValue(`[name="client[clientAddress][${i}][adrApartment]"]`, apartment).removeAttribute('disabled');
+
+                    Helper.setValue(`[name="client[clientAddress][${i}][adrId][id]"]`, idText);
+                    Helper.setValue(`[name="client[clientAddress][${i}][adrId][text]"]`, valuesText)
+                }, 100);
+            }
+        }
     }
 
     static fillEmployerForm() {
@@ -38,32 +63,12 @@ class MacedonianFiller {
     static fillPrimaryInfoForm() {
         Helper.setValue('[name="client[homePhone]"]', Helper.generateRandomMobilePhone_mk());
 
-        for (let i = 0; i <= 1; i++) {
-            if (document.querySelector(`[name="client[clientAddress][${i}][adrCity]"]`).value === '') {
-                const town = Helper.generateRandomName();
-                const street = Helper.generateRandomName();
-                const house = Helper.generateRandomInteger(1, 999);
-                const apartment = Helper.generateRandomInteger(1, 999);
-                const postalCode = Helper.generateRandomInteger(1, 999);
-
-                const valuesText = document.querySelector(`[name="client[clientAddress][${i}][adrId][text]"]`).value
-                    + `|${town}|${street}|${house}|${apartment}|${postalCode}|`;
-                const idText = document.querySelector(`[name="client[clientAddress][${i}][adrId][id]"]`).value + `|-1|-1|-1|-1|-1`;
-
-                Helper.setValue(`[name="client[clientAddress][${i}][adrCity]"]`, town).removeAttribute(`disabled`);
-                Helper.setValue(`[name="client[clientAddress][${i}][adrStreet]"]`, street).removeAttribute(`disabled`);
-                Helper.setValue(`[name="client[clientAddress][${i}][adrHouse]"]`, house).removeAttribute(`disabled`);
-                Helper.setValue(`[name="client[clientAddress][${i}][adrApartment]"]`, apartment).removeAttribute(`disabled`);
-                Helper.setValue(`[name="client[clientAddress][${i}][adrPostcode]"]`, postalCode).removeAttribute(`disabled`);
-
-                Helper.setValue(`[name="client[clientAddress][${i}][adrId][id]"]`, idText);
-                Helper.setValue(`[name="client[clientAddress][${i}][adrId][text]"]`, valuesText);
-            }
-        }
+        MacedonianFiller.fillAddreses();
 
         Helper.setValue('[name="client[clientContactPersons][0][name]"]', Helper.generateRandomName());
         Helper.setValue('[name="client[clientContactPersons][0][surname]"]', Helper.generateRandomName());
         Helper.setValue('[name="client[clientContactPersons][0][relationType]"]', 'Friend');
         Helper.setValue('[name="client[clientContactPersons][0][phone]"]', Helper.generateRandomMobilePhone_mk());
+        document.querySelector('[name="client[name]"]').focus();
     }
 }
