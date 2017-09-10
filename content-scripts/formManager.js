@@ -133,7 +133,9 @@ class FormManager {
      * @returns {string|null}
      */
     getOneLabelForTwoFields(parentContainer) {
-        if (parentContainer.children[0].tagName === 'LABEL') {
+        if (parentContainer
+            && parentContainer.children
+            && parentContainer.children[0].tagName === 'LABEL') {
             const content = parentContainer.children[0].textContent.trim();
 
             if (content) {
@@ -150,7 +152,9 @@ class FormManager {
      * @returns {string|null}
      */
     getTableStyleLabel(parentContainer) {
-        if (parentContainer.children[0].tagName === 'TD'
+        if (parentContainer
+            && parentContainer.children &&
+            parentContainer.children[0].tagName === 'TD'
             && parentContainer.children.length
             && parentContainer.children[0].length) {
 
@@ -170,7 +174,9 @@ class FormManager {
      * @returns {string|null}
      */
     getIdDocumentStyleLabel(parentContainer) {
-        if (parentContainer.children[0].tagName === 'TD') {
+        if (parentContainer
+            && parentContainer.children
+            && parentContainer.children[0].tagName === 'TD') {
             const content = parentContainer.children[0].textContent.trim();
 
             if (content) {

@@ -87,6 +87,8 @@ const erpHelperRouter = {
     }
 };
 const formManager = new FormManager();
+const statisticCollector = new StatisticCollector();
+window.erpHelperPort = chrome.extension.connect();
 
 chrome.runtime.onMessage.addListener(erpHelperRouter.route);
 
@@ -105,7 +107,10 @@ window.document.body.addEventListener('keydown', e => {
     }
 });
 
-window.document.body.addEventListener('change', e => formManager.logInputChange(e.target));
+window.document.body.addEventListener('change', e => {
+    formManager.logInputChange(e.target);
+    statisticCollector.logInputChange(e.target);
+});
 
 // js errors + ajax errors
 window.addEventListener('error', TipsManager.renderErrorTip);
