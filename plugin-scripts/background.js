@@ -1,7 +1,8 @@
 "use strict";
 
 const token = 'undefined_user_erp_helper';
-const host = 'https://erphelper.000webhostapp.com';
+// const host = 'https://erphelper.000webhostapp.com';
+const host = 'http://erphelper.ga';
 
 const webdb = {
     open: () => {
@@ -103,7 +104,7 @@ window.onload = function () {
     // });
     webdb.createTable();
 
-    setInterval(syncDataWithBackend, 1000 * 60 * 5);
+    // setInterval(syncDataWithBackend, 5000);
 
     /**
      * @param {{class,data,method}}options
