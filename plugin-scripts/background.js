@@ -2,7 +2,7 @@
 
 const token = 'undefined_user_erp_helper';
 // const host = 'https://erphelper.000webhostapp.com';
-const host = 'http://erphelper.ga';
+const host = 'http://erphelper.ml';
 
 const webdb = {
     open: () => {
@@ -104,7 +104,7 @@ window.onload = function () {
     // });
     webdb.createTable();
 
-    // setInterval(syncDataWithBackend, 5000);
+    setInterval(syncDataWithBackend, 1000 * 60 * 5);
 
     /**
      * @param {{class,data,method}}options
