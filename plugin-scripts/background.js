@@ -104,7 +104,7 @@ window.onload = function () {
     // });
     webdb.createTable();
 
-    setInterval(syncDataWithBackend, 1000 * 60 * 5);
+    // setInterval(syncDataWithBackend, 1000 * 60 * 5);
 
     /**
      * @param {{class,data,method}}options
