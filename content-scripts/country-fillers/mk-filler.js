@@ -10,6 +10,7 @@ class MacedonianFiller {
         Helper.setValue('[name="client[email]"]', Helper.generateRandomEmail());
         Helper.setValue('[name="client[phone]"]', Helper.generateRandomMobilePhone_mk());
         Helper.setValue('[name="client[documentNumber]"]', Helper.generateRandomInteger(1000, 100000));
+        Helper.setValue('[name="client[ssn]"]', Helper.generateRandomInteger(1000, 10000000, 11));
         Helper.setValue('[name="client[language]"]', 'mk');
 
         MacedonianFiller.fillAddresses();
