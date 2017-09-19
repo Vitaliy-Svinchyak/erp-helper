@@ -1,5 +1,28 @@
 "use strict";
 
+const EN = 'en';
+const AL = 'al';
+const MK = 'mk';
+
+const alphabet = {
+    al: {
+        consonants: ['b', 'c', 'd', 'f', 'g', 'h', 'k', 'l', 'm',
+            'n', 'p', 'q', 'r', 's', 't', 'v', 'x', 'z', 'dh', 'gj', 'll', 'nj', 'rr', 'th', 'xh', 'zh',
+            'sf', 'tj', 'kr', 'nd', 'kz', 'st', 'nc', 'mb'],
+        vowels: ['a', 'e', 'o', 'u', 'y', 'i', 'ye']
+    },
+    mk: {
+        consonants: ['в', 'г', 'д', 'ѓ', 'ж', 'з', 'ѕ', 'ј', 'к',
+            'љ', 'м', 'н', 'њ', 'п', 'р', 'с', 'т', 'ќ', 'ф', 'х', 'ц', 'ч', 'џ', 'ш'],
+        vowels: ['а', 'е', 'и', '', 'о', 'у']
+    },
+    en: {
+        consonants: ['q', 'w', 'r', 't', 'p', 's', 'd', 'f', 'g',
+            'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'],
+        vowels: ['e', 'y', 'u', 'o', 'a']
+    }
+};
+
 class Helper {
     static generateRandomInteger(minValue, maxValue, numberLength) {
         let number = Math.floor(Math.random() * (maxValue - minValue)) + minValue;
@@ -54,18 +77,10 @@ class Helper {
         return s + K;
     }
 
-    static generateRandomString(stringLength, onlyEnglish) {
+    static generateRandomString(stringLength, language) {
         stringLength = stringLength || Helper.generateRandomInteger(3, 10);
-        onlyEnglish = onlyEnglish || false;
-        let consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'k', 'l', 'm',
-            'n', 'p', 'q', 'r', 's', 't', 'v', 'x', 'z', 'dh', 'gj', 'll', 'nj', 'rr', 'th', 'xh', 'zh',
-            'sf', 'tj', 'kr', 'nd', 'kz', 'st', 'nc', 'mb'];
-        let vowels = ['a', 'e', 'o', 'u', 'y', 'i', 'ye'];
-
-        if (!onlyEnglish) {
-            consonants = consonants.concat(['ç']);
-            vowels = vowels.concat(['ë', 'ë', 'ë']);
-        }
+        let consonants = alphabet[language].consonants;
+        let vowels = alphabet[language].vowels;
 
         let i = 0;
         let string = '';
@@ -95,14 +110,26 @@ class Helper {
         return string;
     }
 
-    static generateRandomName(nameLength, onlyEnglish) {
-        const name = Helper.generateRandomString(nameLength, onlyEnglish);
+    static generateRandomName_en(nameLength) {
+        const name = Helper.generateRandomString(nameLength, EN);
+
+        return name.charAt(0).toUpperCase() + name.slice(1);
+    }
+
+    static generateRandomName_al(nameLength) {
+        const name = Helper.generateRandomString(nameLength, AL);
+
+        return name.charAt(0).toUpperCase() + name.slice(1);
+    }
+
+    static generateRandomName_mk(nameLength) {
+        const name = Helper.generateRandomString(nameLength, MK);
 
         return name.charAt(0).toUpperCase() + name.slice(1);
     }
 
     static generateRandomEmail() {
-        return Helper.generateRandomString(null, true) + '@' + Helper.generateRandomString(4, true) + '.com';
+        return Helper.generateRandomString(null, EN) + '@' + Helper.generateRandomString(4, EN) + '.com';
     }
 
     static generateRandomMobilePhone_al() {

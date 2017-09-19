@@ -15,16 +15,16 @@ class Filler {
 
     static fillCmsApplication() {
         Helper.setValueWithChangeAndFocus('[name="identificationNumber"]', Helper.getRandomIdNumber_al());
-        Helper.setValueWithChangeAndFocus('[name="name"]', Helper.generateRandomName());
-        Helper.setValueWithChangeAndFocus('[name="fathersName"]', Helper.generateRandomName());
-        Helper.setValueWithChangeAndFocus('[name="surname"]', Helper.generateRandomName());
+        Helper.setValueWithChangeAndFocus('[name="name"]', Helper.generateRandomName_al());
+        Helper.setValueWithChangeAndFocus('[name="fathersName"]', Helper.generateRandomName_al());
+        Helper.setValueWithChangeAndFocus('[name="surname"]', Helper.generateRandomName_al());
         Helper.setValueWithChangeAndFocus('[name="email"]', Helper.generateRandomEmail());
         Helper.setValueWithChangeAndFocus('[name="phone"]', Helper.generateRandomMobilePhone_al());
         Helper.setValueWithChangeAndFocus('[name="monthlyIncome"]', Helper.generateRandomInteger(250000, 500000));
 
-        const division = Helper.generateRandomName();
-        const town = Helper.generateRandomName();
-        const street = Helper.generateRandomName();
+        const division = Helper.generateRandomName_al();
+        const town = Helper.generateRandomName_al();
+        const street = Helper.generateRandomName_al();
         const house = Helper.generateRandomInteger(1, 999);
         const entrance = Helper.generateRandomInteger(1, 999);
         const apartment = Helper.generateRandomInteger(1, 999);
@@ -232,7 +232,7 @@ class Filler {
                 switch (input.name.match(/\[[a-zA-Z]*]/)[0]) {
                     case'[occupation]':
                     case'[employerName]':
-                        input.value = Helper.generateRandomName();
+                        input.value = Helper.generateRandomName_al();
                         break;
                     case'[additionalIncome]':
                         if (input.type === 'number') {
