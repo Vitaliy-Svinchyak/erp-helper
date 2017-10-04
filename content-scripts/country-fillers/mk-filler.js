@@ -22,6 +22,11 @@ class MacedonianFiller {
             if (document.querySelector(`[name="client[clientAddress][${i}][adrCity]"]`)) {
                 const cities =
                     Array.prototype.slice.call(document.querySelector(`[name="client[clientAddress][${i}][adrCity]"]`).options, 1);
+
+                if (!cities.length) {
+                    continue;
+                }
+
                 Helper.setValueWithChangeAndFocus(
                     `[name="client[clientAddress][${i}][adrCity]"]`,
                     cities[Helper.generateRandomInteger(0, cities.length - 1)].value
@@ -72,6 +77,74 @@ class MacedonianFiller {
         Helper.setValue('[name="client[clientContactPersons][0][surname]"]', Helper.generateRandomName_mk());
         Helper.setValue('[name="client[clientContactPersons][0][relationType]"]', 'Friend');
         Helper.setValue('[name="client[clientContactPersons][0][phone]"]', Helper.generateRandomMobilePhone_mk());
+        Helper.setValue('[name="client[payDate][dateOfMonth]"]', Helper.generateRandomInteger(1, 25));
         document.querySelector('[name="client[name]"]').focus();
+    }
+
+    static fillIdDocumentForm() {
+        const formName = 'client_id_document_form';
+        const inputsToFill = Filler.getInputsToFill(formName);
+
+        for (const input of inputsToFill) {
+            switch (input.name.match(/\[[a-zA-Z]*]/)[0]) {
+                case'[documentType]':
+                    input.value = 'passport';
+                    break;
+                case'[documentNumber]':
+                    input.value = 'C' + Helper.generateRandomInteger(1000000, 9999999);
+                    break;
+                case'[expiryDate]':
+                    Helper.setValueWithChangeAndFocus(input, Helper.generateRandomDate(true));
+                    break;
+                case'[documentIssueDate]':
+                    input.value = Helper.generateRandomDate(false);
+                    break;
+                case '[EMBGMatches]':
+                case '[nameMatchesSurname]':
+                case '[declaredAddressMatches]':
+                    if (input.value === '1') {
+                        Helper.clickElement(input);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Filler.fillSatisfactoryInputs(formName);
+    }
+
+    static fillBankAccountForm() {
+        const formName = 'client_bank_account_confirmation_form';
+        const inputsToFill = Filler.getInputsToFill(formName);
+
+        for (let addNew of document.querySelectorAll('[data-field="bankAccount"] td div a')) {
+            Helper.clickElement(addNew);
+        }
+
+        for (const input of inputsToFill) {
+            switch (input.name.match(/\[[a-zA-Z]*]/)[0]) {
+                case '[bankName]':
+                    Filler.onTodoBodyChange(function() {
+                        document.querySelector('tr[data-field="bankName"] .tt-menu .tt-suggestion').click();
+                        Filler.fillSatisfactoryInputs(formName);
+                    });
+                    Helper.setValueWithChangeAndFocus(input, '');
+                    break;
+                case '[bankAccount]':
+                    input.value = 'MK33100' + Helper.generateRandomInteger(100000000000, 999999999999);
+                    break;
+                case '[isPrimary]':
+                case '[documentCopied]':
+                    if (input.value === '1') {
+                        Helper.clickElement(input);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Filler.fillSatisfactoryInputs(formName);
     }
 }

@@ -42,7 +42,7 @@ const erpHelperRouter = {
                 Filler.fillCreditDbUpdateTodo();
                 break;
             case 'id-document':
-                Filler.fillIdDocumentForm();
+                Filler.executeFillerFunction('fillIdDocumentForm');
                 break;
             case 'household-bill':
                 Filler.fillHouseholdBillForm();
@@ -57,7 +57,7 @@ const erpHelperRouter = {
                 Filler.executeFillerFunction('fillEmployerForm');
                 break;
             case 'bank-account-confirmation':
-                Filler.fillBankAccountForm();
+                Filler.executeFillerFunction('fillBankAccountForm');
                 break;
             case 'confirm-check':
                 Filler.fillConfirmCheckForm();

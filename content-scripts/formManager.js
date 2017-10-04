@@ -121,6 +121,10 @@ class FormManager {
                 return idDocumentStyleLabel;
             }
 
+            if (!parentContainer) {
+                break;
+            }
+
             parentContainer = parentContainer.parentNode;
         }
 
@@ -388,11 +392,16 @@ class FormManager {
         if (element.id !== '') {
             return "id('" + element.id + "')";
         }
+
         if (element === document.body) {
             return element.tagName;
         }
 
         let ix = 0;
+
+        if (!element.parentNode) {
+            return element.tagName;
+        }
         const siblings = element.parentNode.childNodes;
 
         for (let i = 0; i < siblings.length; i++) {

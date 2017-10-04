@@ -167,13 +167,13 @@ class Helper {
             year.toString();
     }
 
-    static setValue(selector, value) {
+    static setValue(selectorOrElement, value) {
         let element;
 
-        if (typeof( selector ) === 'string') {
-            element = document.querySelector(selector);
+        if (typeof( selectorOrElement ) === 'string') {
+            element = document.querySelector(selectorOrElement);
         } else {
-            element = selector;
+            element = selectorOrElement;
         }
 
         if (!element) {
@@ -185,8 +185,8 @@ class Helper {
         return element;
     }
 
-    static setValueWithChangeAndFocus(selector, value) {
-        const element = Helper.setValue(selector, value);
+    static setValueWithChangeAndFocus(selectorOrElement, value) {
+        const element = Helper.setValue(selectorOrElement, value);
 
         if (!element) {
             return false;

@@ -11,7 +11,7 @@
   - Payslip Check (al)
   - Client Primary Info (al, mk)
   - Employer Info (al, mk)
-  - Bank Account (al)
+  - Bank Account (al, mk)
   - Confirm Check (al)
   
 - Заполнять форму

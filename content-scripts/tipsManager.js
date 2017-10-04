@@ -36,7 +36,7 @@ class TipsManager {
                                         <li>Payslip Check (al)</li>
                                         <li>Client Primary Info (al, mk)</li>
                                         <li>Employer Info (al, mk)</li>
-                                        <li>Bank Account (al)</li>
+                                        <li>Bank Account (al, mk)</li>
                                         <li>Confirm Check (al)</li>
                                     </ol>
                                 </li>
