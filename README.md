@@ -6,12 +6,13 @@
   
 - Заполнять форму Todo
   - Credit Db Manual Check (al)
-  - Id Document Check (al)
+  - Id Document Check (al, mk)
   - Household Bill Check (al)
   - Payslip Check (al)
   - Client Primary Info (al, mk)
   - Employer Info (al, mk)
-  - Bank Account (al, mk)
+  - Bank Account Confirmation (al, mk)
+  - Bank Statement (mk)
   - Confirm Check (al)
   
 - Заполнять форму

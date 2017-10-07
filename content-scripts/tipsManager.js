@@ -31,12 +31,13 @@ class TipsManager {
                                 <li>Заполнять форму Todo
                                     <ol>
                                         <li>Credit Db Manual Check (al)</li>
-                                        <li>Id Document Check (al)</li>
+                                        <li>Id Document Check (al, mk)</li>
                                         <li>Household Bill Check (al)</li>
                                         <li>Payslip Check (al)</li>
                                         <li>Client Primary Info (al, mk)</li>
                                         <li>Employer Info (al, mk)</li>
-                                        <li>Bank Account (al, mk)</li>
+                                        <li>Bank Account Confirmation (al, mk)</li>
+                                        <li>Bank Statement (mk)</li>
                                         <li>Confirm Check (al)</li>
                                     </ol>
                                 </li>

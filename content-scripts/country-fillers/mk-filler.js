@@ -147,4 +147,39 @@ class MacedonianFiller {
 
         Filler.fillSatisfactoryInputs(formName);
     }
+
+    static fillBankStatementForm() {
+        const formName = 'client_bank_statements_form';
+        const inputsToFill = Filler.getInputsToFill(formName);
+
+        for (const input of inputsToFill) {
+            switch (input.name.match(/\[[a-zA-Z]*]/)[0]) {
+                case '[bankName]':
+                    Filler.onTodoBodyChange(function() {
+                        document.querySelector('tr[data-field="bankName"] .tt-menu .tt-suggestion').click();
+                        Filler.fillSatisfactoryInputs(formName);
+                    });
+                    Helper.setValueWithChangeAndFocus(input, '');
+                    break;
+                case '[accountNumber]':
+                    input.value = 'MK33100' + Helper.generateRandomInteger(100000000000, 999999999999);
+                    break;
+                case '[isNameTheSameInApplication]':
+                case '[isAddressTheSameInApplication]':
+                case '[isClientIdTheSameInApplication]':
+                case '[isBankLogoOrStampPresent]':
+                case '[isMonthlyIncomeMoreThanXMKD]':
+                case '[isIncomeFromLegalEntity]':
+                case '[isTransactionsNotSuspicious]':
+                    if (input.value === '1') {
+                        Helper.clickElement(input);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Filler.fillSatisfactoryInputs(formName);
+    }
 }

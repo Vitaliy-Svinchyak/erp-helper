@@ -59,6 +59,9 @@ const erpHelperRouter = {
             case 'bank-account-confirmation':
                 Filler.executeFillerFunction('fillBankAccountForm');
                 break;
+            case 'bank-statement':
+                Filler.executeFillerFunction('fillBankStatementForm');
+                break;
             case 'confirm-check':
                 Filler.fillConfirmCheckForm();
                 break;
