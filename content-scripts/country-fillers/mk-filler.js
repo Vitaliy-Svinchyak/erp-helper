@@ -123,19 +123,17 @@ class MacedonianFiller {
         }
 
         for (const input of inputsToFill) {
-            switch (input.name.match(/\[[a-zA-Z]*]/)[0]) {
-                case '[bankName]':
+            switch (input.name) {
+                case 'bankName':
                     Filler.onTodoBodyChange(function() {
                         document.querySelector('tr[data-field="bankName"] .tt-menu .tt-suggestion').click();
-                        Filler.fillSatisfactoryInputs(formName);
                     });
                     Helper.setValueWithChangeAndFocus(input, '');
                     break;
-                case '[bankAccount]':
+                case 'bankAccount':
                     input.value = 'MK33100' + Helper.generateRandomInteger(100000000000, 999999999999);
                     break;
-                case '[isPrimary]':
-                case '[documentCopied]':
+                case 'isPrimary':
                     if (input.value === '1') {
                         Helper.clickElement(input);
                     }
@@ -144,8 +142,6 @@ class MacedonianFiller {
                     break;
             }
         }
-
-        Filler.fillSatisfactoryInputs(formName);
     }
 
     static fillBankStatementForm() {
