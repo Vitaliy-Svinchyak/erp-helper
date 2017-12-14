@@ -3,9 +3,6 @@
 const EN = 'en';
 const AL = 'al';
 const MK = 'mk';
-const NA = 'na';
-const BW = 'bw';
-const ZM = 'zm';
 
 const alphabet = {
     al: {
@@ -23,7 +20,7 @@ const alphabet = {
         consonants: ['q', 'w', 'r', 't', 'p', 's', 'd', 'f', 'g',
             'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'],
         vowels: ['e', 'y', 'u', 'o', 'a']
-    },
+    }
 };
 
 class Helper {
@@ -50,7 +47,6 @@ class Helper {
         return reduce[toTranslate - 180] + String(year).substr(3, 1);
     }
 
-    // ID GENERATION METHODS START~~~~~~~~~~~~~~~
     static getRandomIdNumber_al() {
         const DD = Helper.generateRandomInteger(1, 28, 2).toString();
         const sex = Helper.generateRandomInteger(1, 2, 1).toString();
@@ -102,7 +98,6 @@ class Helper {
     static getRandomIdNumber_bw() {
         return Helper.generateRandomInteger(111111111, 999999999, 9);
     }
-    // ID GENERATION METHODS END~~~~~~~~~~~~~~~~~
 
     static generateRandomString(stringLength, language) {
         stringLength = stringLength || Helper.generateRandomInteger(3, 10);
