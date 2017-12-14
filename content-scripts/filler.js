@@ -10,6 +10,15 @@ class Filler {
             case 'al':
                 AlbanianFiller[name]();
                 break;
+            case 'na':
+                NamibiaFiller[name]();
+                break;
+            case 'bw':
+                BotswanaFiller[name]();
+                break;
+            case 'zm':
+                ZambiaFiller[name]();
+                break;
         }
     }
 

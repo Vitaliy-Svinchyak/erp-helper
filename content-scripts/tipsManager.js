@@ -24,7 +24,7 @@ class TipsManager {
                             <ol>
                                 <li>Заполнять форму создания Application
                                     <ol>
-                                        <li>erp (al, mk)</li>
+                                        <li>erp (al, mk, na, zm, bw)</li>
                                         <li>web (al)</li>
                                     </ol>
                                 </li>

@@ -3,6 +3,9 @@
 const EN = 'en';
 const AL = 'al';
 const MK = 'mk';
+const NA = 'na';
+const BW = 'bw';
+const ZM = 'zm';
 
 const alphabet = {
     al: {
@@ -20,7 +23,7 @@ const alphabet = {
         consonants: ['q', 'w', 'r', 't', 'p', 's', 'd', 'f', 'g',
             'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'],
         vowels: ['e', 'y', 'u', 'o', 'a']
-    }
+    },
 };
 
 class Helper {
@@ -47,6 +50,7 @@ class Helper {
         return reduce[toTranslate - 180] + String(year).substr(3, 1);
     }
 
+    // ID GENERATION METHODS START~~~~~~~~~~~~~~~
     static getRandomIdNumber_al() {
         const DD = Helper.generateRandomInteger(1, 28, 2).toString();
         const sex = Helper.generateRandomInteger(1, 2, 1).toString();
@@ -76,6 +80,29 @@ class Helper {
 
         return s + K;
     }
+
+    static getRandomIdNumber_na() {
+        const YY = Helper.generateRandomInteger(60, 90, 2).toString();
+        const DD = Helper.generateRandomInteger(1, 28, 2).toString();
+        const MM = Helper.generateRandomInteger(1, 12, 2).toString();
+        const other = Helper.generateRandomInteger(11111, 99999, 5).toString();
+
+        return YY + MM + DD + other;
+    }
+
+    static getRandomIdNumber_zm() {
+        const p1 = Helper.generateRandomInteger(111111, 999999, 6).toString();
+        const p2 = Helper.generateRandomInteger(11, 99, 2).toString();
+        const p3 = '1';
+        const delimiter = '/';
+
+        return p1 + delimiter + p2 + delimiter + p3;
+    }
+
+    static getRandomIdNumber_bw() {
+        return Helper.generateRandomInteger(111111111, 999999999, 9);
+    }
+    // ID GENERATION METHODS END~~~~~~~~~~~~~~~~~
 
     static generateRandomString(stringLength, language) {
         stringLength = stringLength || Helper.generateRandomInteger(3, 10);
@@ -146,6 +173,26 @@ class Helper {
         return startNumber.toString() + Helper.generateRandomInteger(111111, 999999).toString();
     }
 
+    static generateRandomMobilePhone_na() {
+        const startVariants = ['081', '083', '085'];
+        const startNumber = startVariants[Helper.generateRandomInteger(0, startVariants.length - 1)];
+
+        return startNumber.toString() + Helper.generateRandomInteger(1111111, 9999999).toString();
+    }
+
+    static generateRandomMobilePhone_bw() {
+        const startNumber = '7';
+
+        return startNumber.toString() + Helper.generateRandomInteger(1111111, 9999999).toString();
+    }
+
+    static generateRandomMobilePhone_zm() {
+        const startVariants = ['95', '96', '97'];
+        const startNumber = startVariants[Helper.generateRandomInteger(0, startVariants.length - 1)];
+
+        return startNumber.toString() + Helper.generateRandomInteger(1111111, 9999999).toString();
+    }
+
     static generateRandomHomePhone() {
         return '4' + Helper.generateRandomInteger(1111111, 9999999).toString();
     }
@@ -165,6 +212,14 @@ class Helper {
         return Helper.generateRandomInteger(1, 28, 2).toString() + '/' +
             Helper.generateRandomInteger(1, 12, 2).toString() + '/' +
             year.toString();
+    }
+
+    // we should add a bit more sexism here
+    // return 'm' for example
+    static generateRandomGender() {
+        let genders = ['m', 'f'];
+
+        return genders[Helper.generateRandomInteger(0, 2, 1)];
     }
 
     static setValue(selectorOrElement, value) {
