@@ -9,6 +9,7 @@ class NamibiaFiller {
         Helper.setValue('[name="client[email]"]', Helper.generateRandomEmail());
         Helper.setValue('[name="client[phone]"]', Helper.generateRandomMobilePhone_na());
         Helper.setValueWithChangeAndFocus('[name="client[gender]"]', Helper.generateRandomGender());
+        Helper.setValueWithChangeAndFocus('[name="service[payDateOfMonth]"]', '10');
 
         NamibiaFiller.fillAddresses();
         NamibiaFiller.fillAppEmployerForm();
