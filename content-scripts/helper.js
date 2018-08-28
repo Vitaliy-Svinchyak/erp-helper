@@ -208,6 +208,13 @@ class Helper {
             Helper.generateRandomInteger(1, 12, 2).toString() + '/' +
             year.toString();
     }
+    static generateRandomExpiryDate() {
+        const year = Helper.generateRandomInteger(2030, 2040, 4);
+
+        return Helper.generateRandomInteger(1, 28, 2).toString() + '/' +
+            Helper.generateRandomInteger(1, 12, 2).toString() + '/' +
+            year.toString();
+    }
 
     // we should add a bit more sexism here
     // return 'm' for example

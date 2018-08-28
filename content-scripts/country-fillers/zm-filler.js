@@ -4,12 +4,18 @@ class ZambiaFiller {
     static fillErpApplication() {
         Helper.setValue('[name="service[amount][amount]"]', 2000);
         Helper.setValue('[name="client[clientIdentificator]"]', Helper.getRandomIdNumber_zm());
+        Helper.setValue('[name="clientIdDocument[documentNumber]"]', Helper.getRandomIdNumber_zm());
         Helper.setValue('[name="client[name]"]', Helper.generateRandomName_en());
         Helper.setValue('[name="client[surname]"]', Helper.generateRandomName_en());
+        Helper.setValue('[name="client[middleName]"]', Helper.generateRandomName_en());
         Helper.setValue('[name="client[birthday]"]', Helper.generateRandomBirthday());
+        Helper.setValue('[name="clientIdDocument[expiryDate]"]', Helper.generateRandomExpiryDate());
         Helper.setValue('[name="client[email]"]', Helper.generateRandomEmail());
         Helper.setValue('[name="client[phone]"]', Helper.generateRandomMobilePhone_zm());
         Helper.setValueWithChangeAndFocus('[name="client[gender]"]', Helper.generateRandomGender());
+        Helper.setValueWithChangeAndFocus('[name="client[clientTpin]"]', Helper.generateRandomInteger(1000000000,9999999999,10));
+        Helper.setValueWithChangeAndFocus('[name="clientIdDocument[documentType]"]', 'passport');
+        Helper.setValueWithChangeAndFocus('[name="clientIdDocument[countryOfIssue]"]', 'zambia');
 
         ZambiaFiller.fillAddresses();
         ZambiaFiller.fillAppEmployerForm();
@@ -54,5 +60,7 @@ class ZambiaFiller {
         Helper.setValue('[name="contact[surname]"]', Helper.generateRandomName_en());
         Helper.setValue('[name="contact[phone]"]', Helper.generateRandomMobilePhone_zm());
         Helper.setValueWithChangeAndFocus('[name="contact[relationType]"]', 'other');
+        Helper.setValue('[name="contact[middleName]"]', Helper.generateRandomName_en());
+
     }
 }

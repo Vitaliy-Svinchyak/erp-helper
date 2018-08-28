@@ -10,10 +10,14 @@ class BotswanaFiller {
         Helper.setValue('[name="client[email]"]', Helper.generateRandomEmail());
         Helper.setValue('[name="client[phone]"]', Helper.generateRandomMobilePhone_bw());
         Helper.setValueWithChangeAndFocus('[name="client[maritalStatus]"]', 'single');
+        Helper.setValueWithChangeAndFocus('[name="client[gender]"]', 'm');
+        Helper.setValueWithChangeAndFocus('[name="service[payDateOfMonth]"]', '10');
+
 
         BotswanaFiller.fillAddresses();
         BotswanaFiller.fillAppEmployerForm();
-        BotswanaFiller.fillAppContactPerson();
+        BotswanaFiller.fillAppFirstContactPersonDetails();
+        BotswanaFiller.fillAppSecondContactPersonDetails();
         document.querySelector('[name="service[amount][amount]"]').focus();
     }
 
@@ -49,10 +53,17 @@ class BotswanaFiller {
         Helper.setValue('[name="client[employerPhone]"]', Helper.generateRandomMobilePhone_bw());
     }
 
-    static fillAppContactPerson() {
-        Helper.setValue('[name="contact[name]"]', Helper.generateRandomName_en());
-        Helper.setValue('[name="contact[surname]"]', Helper.generateRandomName_en());
-        Helper.setValue('[name="contact[phone]"]', Helper.generateRandomMobilePhone_bw());
-        Helper.setValueWithChangeAndFocus('[name="contact[relationType]"]', 'other');
+    static fillAppFirstContactPersonDetails() {
+        Helper.setValue('[name="firstContact[name]"]', Helper.generateRandomName_en());
+        Helper.setValue('[name="firstContact[surname]"]', Helper.generateRandomName_en());
+        Helper.setValue('[name="firstContact[phone]"]', Helper.generateRandomMobilePhone_bw());
+        Helper.setValueWithChangeAndFocus('[name="firstContact[relationType]"]', 'other');
+    }
+
+    static fillAppSecondContactPersonDetails() {
+        Helper.setValue('[name="secondContact[name]"]', Helper.generateRandomName_en());
+        Helper.setValue('[name="secondContact[surname]"]', Helper.generateRandomName_en());
+        Helper.setValue('[name="secondContact[phone]"]', Helper.generateRandomMobilePhone_bw());
+        Helper.setValueWithChangeAndFocus('[name="secondContact[relationType]"]', 'other');
     }
 }
